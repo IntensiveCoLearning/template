@@ -1,11 +1,7 @@
-# 残酷共学模版
+# Aptos 残酷共学 - Aptos / LXDAO / Alcove / Ankaa 等联合发起
 
-> 本文档为创建残酷共学的通用模版 - 中文版，请根据模版结构来进行你的残酷共学的内容填充
-
-# {本期残酷共学标题}
-
-## 什么是残酷共学（Intensive Co-learning）？
-
+### 什么是残酷共学（Intensive Co-learning）？
+<details>
 残酷共学是由 [Bruce Xu](https://twitter.com/brucexu_eth) 首创的一种学习模式，目前由 [LXDAO](https://lxdao.io/) 组织并运营残酷共学品牌。
 共学有很多种，「残酷共学」与之不同的是「残酷」：
 
@@ -20,127 +16,263 @@
 关于更多「残酷共学」的介绍请参见：https://forum.lxdao.io/t/topic/1654
 
 关于更多正在发生的残酷共学请参见：https://intensivecolearn.ing/
+</details>
 
-如果你有任何有关残酷共学的疑问或者想法，请到 [残酷共学 Telegram 群](https://t.me/LXDAO/6215) 联系我们。
+## **背景与目标**
 
-## {本期残酷共学名字}介绍
+> Aptos 残酷共学由 Aptos、LXDAO、Alcove 、Ankaa 加速器联合发起，由 Aptos、Alcove、Aptos Global 联合赞助
 
-请写清楚本期残酷共学：
+本次活动旨在大家了解 Aptos 、学习 Aptos 、使用 Aptos
+> 
 
-- 举办的原因
-- 谁/哪个组织发起的，以及合作方
-- 一共几期
-- 共学形式：自主学习、定期答疑、线上课程 、线下 Meetup (请自由组合或新增新的共学方式)
-- 本次共学目标或产出
-- 适合人群
-- 负责人、助教、导师的简单介绍以及联系方式
+📘 共学目标：
 
-## 共学内容
+- 了解 Aptos 公链的架构和特点
+- 掌握 Aptos Move 语言的基本语法和编程技巧
+- 探索 Aptos 目前最新的技术发展
 
-请写清楚共学内容的链接以及使用方法，如果欢迎新增共学内容，也请说明一下，但请负责人保证共学的内容准确、质量、数量、符合本次共学难度。
+## **面向人群及共学特色**
 
-如果有提供的具体的课程学习计划，也请在此说明。
+无论你是开发者，还是对 DeFi 充满好奇的普通人，我们都欢迎的加入。
 
-## 共学时间
+> 无论你是 Web2 / Web3 开发者，还是对 Aptos 充满好奇的普通人，我们都欢迎加入
+> 
 
-- 报名截止时间：(请写明时区)
-- 本期共学开始时间：(请写明时区)
+## **🌐 共学特色：**
+
+- **全面开放：** 我们的大门向所有人敞开，无需特定的技术背景或经验。
+- **知识共享：** 我们鼓励知识交流，相信每个人都能为这个社区带来独特的视角。
+- **实践融合：** 通过每日学习后提交学习笔记或者提交部署合约 / 交易的 Hash，。
+- **开源开放：** 以 GitHub 为学习平台，提供了一个开放、协作的学习环境。
+
+## **🗓️ 共学活动：**
+
+- **定期会议：** 每周的线上会议，解答疑惑，分享 Aptos 技术细节，了解 Aptos 特性。
+
+## 会议安排
+
+- 9 月 7 号：
+    - 主题： Aptos & Move 简介与学习资料推荐
+    - 主讲人： Logan - Aptos DevRel
+- 9 月 10 号：
+    - 主题：安装开发环境、创建/编译/测试/部署工程
+    - 主讲人： Logan - Aptos DevRel
+- 9 月 17 号
+    - 主题： 构建并部署 代币 faucet
+    - 主讲人： Logan - Aptos DevRel
+- 9 月 24 号
+    - 主题： 构建并部署 NFT LaunchPad
+    - 主讲人： Logan - Aptos DevRel
+
+> 「Aptos 残酷共学」，以 21 天为一个学习周期，实现自主、开源开放，不断共同构建和完善 Aptos 共学资料及实践案例。
+> 
+
+## **可供参考的学习内容和路线**
+
+1. Aptos 公链机制：
+    - 了解 Aptos 公链的架构、共识机制，Gas 模型、帐户模型、资源模型、交易与状态模型
+    <details> 
+        
+    - [共识机制](https://aptos.dev/en/network/blockchain/validator-nodes#consensus) 
+    - [账户模型](https://aptos.dev/en/network/blockchain/accounts)
+    - [Gas 模型](https://aptos.dev/en/network/blockchain/gas-txn-fee)
+    - [资源模型](https://aptos.dev/en/network/blockchain/resources)
+    - [交易与状态模型](https://aptos.dev/en/network/blockchain/txns-states)
+   </details>
+3. Aptos Move （初级）：
+    - 了解 Aptos Move 的基本语法，Aptos  Stdlib 的使用
+    <details> 
+        
+    - [Aptos Move Book](https://aptos.dev/en/build/smart-contracts/book)
+    - [Aptos Stdlib 合约源码](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-stdlib/sources)
+   </details>
+5. Aptos Move （中级）：
+    - 了解 Aptos Move Framework 和 其他官方库，并尝试部署简单的 ToDolist 合约、了解 Object 模型
+    <details> 
+        
+    - [Aptos Move Framework 合约源码](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-framework/sources)
+    - [Aptos Token 合约源码](https://github.com/aptos-labs/aptos-core/tree/main/aptos-move/framework/aptos-token-objects/sources)
+    - [ToDolist 合约示例](https://learn.aptoslabs.com/zh/code-example/todo-list)
+    - [Object 模型](https://aptos.dev/en/build/smart-contracts/objects)
+   </details>
+7. Aptos Move （高级）：
+    - 了解 Aptos Move 的代币标准 ，FA （同质化代币） / DA（非同质化代币），并尝试部署自己的 代币水龙头、NFT LaunchPad 
+    <details> 
+        
+    - [NFT LaunchPad 合约 / 前端 示例](https://learn.aptoslabs.com/zh/code-example/fa-launchpad)
+        - [Live Demo](https://fungible-asset-launchpad.vercel.app/)
+    - [Fungible Asset（ 同质化代币 -  FT / ERC 20 ）文档](https://aptos.dev/en/build/smart-contracts/fungible-asset)
+    - [Digital Asset（ 非同质化代币 -  NFT / ERC 721 ）文档](https://aptos.dev/en/build/smart-contracts/digital-asset)
+   </details>
+8. Dapp开发： 合约测试，React / Nextjs 与 Aptos Wallet 的链接、Ts SDK 的使用，读取链上数据、发送链上交易
+9. 新功能：Keyless 无私钥登陆，Randomness 链上随机数， Dispatchable Fungible Assets
+
+## **残酷共学特别激励**
+
+**🏅NFT 徽章：** 完成 Aptos 残酷共学的小伙伴结业将收到一枚 Badge 徽章认证。
+
+**🎁 特别奖励：** 我们相信，真正的学习是教会你如何获取所需，随着你的技能提升，一系列特别奖励将随之而来。
+同时也为大家准备了一些奖励机制：
+
+**总奖池 1800 U**
+> 所有的奖励需要大家先完成共学才能有获奖资格
+
+- **1.  所有完成共学的人**：平分 500 USDC
+- **2. 所有完成项目的人**：平分 300 USDC
+- **3. 项目额外奖金**
+    - **第一名**：500 USDC
+    - **第二名**：300 USDC
+    - **第三名**：200 USDC
+
+>**奖金发放可以叠加**
+>
+>未完成共学  = **无**  
+>未完成共学  +  完成项目  = **无**  
+>**完成共学** + **完成项目（未获奖）**=  **可平分 1 奖励 + 平分 2 奖励**  
+>**完成共学** + **完成项目（获奖 第一名）**=  **可平分 1 奖励 + 平分 2 奖励 + 项目第一名奖金**  
+
+**共学时间**
+
+- 报名截止时间：2024-09-06 23:00:00（UTC+8）
+- 本期共学开始时间：2024-09-07 00:00:00（UTC+8）
 - 本期共学持续时间：21 天（我们默认为 21 天，21 天为养成一个新习惯的周期，可根据自己的内容和课程来制定，但不易过长或过短）
 
-## 共学规则
-
-（以下内容为 LXDAO 共学活动默认规则，你可以根据自己共学的情况进行修改，请注意我们有自动化脚本进行打卡记录的更新，请确保如果修改规则要将脚本规则一并修改）
+## **共学规则**
 
 - 报名规则：请在报名截止时间前进行报名，共学一旦开始后，不得中途加入
-- 打卡规则：建议你每天学习 30 ～ 60 分钟，并将学习笔记提交，我们会自动更新你的打卡状态，每周有两次请假的机会，超过后状态变为 ❌，视为本次共学失败
-- 激励规则：（如果有具体的激励方式请写明）（没有激励方案默认文案参考：通过本次共学学到的知识，就是你给自己最好的激励！）
-- 考核规则：（如果有具体的考核方式请写明，没有就不写）
+- 打卡规则：建议你每天学习 30 ～ 60 分钟，并将学习笔记提交，我们会自动更新你的打卡状态，每周有 3 次请假的机会，超过后状态变为 ❌，视为本次共学失败
 
-## 如何报名和打卡？
-
-因为残酷共学的报名和打卡是基于 GitHub 进行开展的，如果你是非开发者或者对 git 操作不熟悉，请先阅读此文档：[残酷共学 GitHub 新手教程](https://www.notion.so/lxdao/GitHub-53fca5ba49bb40c69e4e40e69f58f416)
+## **如何报名和打卡？**
 
 - 报名:
-
-  - Step01：Fork 本仓库。
-  - Step02：复制 Template.md 创建你的个人笔记文件，并根据文档指引填写你的信息，并将文件重命名为你的名字：YourName.md。
-  - Step03：创建一个 PR 到当前仓库，本残酷共学助教会对你的 PR 进行 review，review 通过后，你的 PR 会被 merge 到 main 分支，这个时候你会收到邀请加入这个仓库 contribution 的邮件，接受邀请后，你会自动获得 main 分支的 push 权限。
-  - Step04：完成以上三个步骤，恭喜你报名成功，后续就可以将你的学习记录直接 push 到 main 分支进行更新。
-  - 请加入 xxx 群组保持交流：（请添加你创建的群组链接)。加入群组后请在群里报到一下方便助教记录。
-
+    - Step01：Fork 本仓库。
+    - Step02：复制 Template.md 创建你的个人笔记文件，并根据文档指引填写你的信息，并将文件重命名为你的名字：YourName.md。
+    - Step03：创建一个 PR 到当前仓库，本残酷共学助教会对你的 PR 进行 review，review 通过后，你的 PR 会被 merge 到 main 分支，这个时候你会收到邀请加入这个仓库 contribution 的邮件，接受邀请后，你会自动获得 main 分支的 push 权限。
+    - Step04：完成以上三个步骤，恭喜你报名成功，后续就可以将你的学习记录直接 push 到 main 分支进行更新。
+    - 请加入LXDAO TG 群组保持交流：[http://t.me/LXDAO](https://t.me/LXDAO/12418)  加入群组后请在群里报到一下方便助教记录
+    - 或者添加 Aptos DevRel 微信进入 Aptos 官方微信群:  logan_apt
 - 打卡：
-  - 报名成功后，你将拥有 main 分支的 push 权限，你需要将每天学习笔记按日期更新到你的 YourName.md 文档中，提交更新后，我们会自动更新你的打卡状态到下面的打卡记录表。
-  - 如果你不在 UTC+8 时区，需要添加时区 code 到你的 YourName.md 文件的开始，错误的时区设置可能会使自动化打卡脚本错误计算打卡时间，具体请参考：https://github.com/IntensiveCoLearning/template/blob/main/Template.md?plain=1#L1
-  - 当你提交笔记时，请确保以下几点，否则打卡可能会失败：
-    - 在 YourName.md 文档，请将笔记内容放到以下代码块中，且 `<!-- Content_START -->` 和 `<!-- Content_END -->` 不能删除:
-    ```
-    <!-- Content_START -->
-    ### 日期
-    笔记内容
-    <!-- Content_END -->
-    ```
-    - 日期格式为 `### 2024.07.11`，请不要随意更改
+    - 报名成功后，你将拥有 main 分支的 push 权限，你需要将每天学习笔记按日期更新到你的 YourName.md 文档中，提交更新后，我们会自动更新你的打卡状态到下面的打卡记录表。
+    - 如果你不在 UTC+8 时区，需要添加时区 code 到你的 YourName.md 文件的开始，错误的时区设置可能会使自动化打卡脚本错误计算打卡时间，具体请参考：https://github.com/IntensiveCoLearning/template/blob/main/Template.md?plain=1#L1
+    - 当你提交笔记时，请确保以下几点，否则打卡可能会失败：
+        - 在 YourName.md 文档，请将笔记内容放到以下代码块中，且 `<!-- Content_START -->` 和 `<!-- Content_END -->` 不能删除:
+        
+        ```
+        <!-- Content_START -->
+        ### 日期
+        笔记内容
+        <!-- Content_END -->
+        
+        ```
+        
+        - 日期格式为 `### 2024.07.11`，请不要随意更改
 
-## {本期残酷共学名字}打卡记录表
+## {Aptos 残酷共学}打卡记录表
 
 ✅ = Done ⭕️ = Missed ❌ = Failed
 
 <!-- START_COMMIT_TABLE -->
-
-| Name(GitHub ID) | 6.24 | 6.25 | 6.26 | 6.27 | 6.28 | 6.29 | 6.30 | 7.01 | 7.02 | 7.03 | 7.04 | 7.05 | 7.06 | 7.07 | 7.08 | 7.09 | 7.10 | 7.11 | 7.12 | 7.13 | 7.14 |
-| --------------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|                 |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-
+| Name | 9.07 | 9.08 | 9.09 | 9.10 | 9.11 | 9.12 | 9.13 | 9.14 | 9.15 | 9.16 | 9.17 | 9.18 | 9.19 | 9.20 | 9.21 | 9.22 | 9.23 | 9.24 | 9.25 | 9.26 | 9.27 |
+| ------------- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| Ellen | | | | | | | | | | | | | | | | | | | | | |
+| simons | | | | | | | | | | | | | | | | | | | | | |
+| yue | | | | | | | | | | | | | | | | | | | | | |
+| qiaopengjun | | | | | | | | | | | | | | | | | | | | | |
+| Punkcan | | | | | | | | | | | | | | | | | | | | | |
+| Oscar | | | | | | | | | | | | | | | | | | | | | |
+| MartinYeung5 | | | | | | | | | | | | | | | | | | | | | |
+| hahn | | | | | | | | | | | | | | | | | | | | | |
+| Gauss | | | | | | | | | | | | | | | | | | | | | |
+| newraina | | | | | | | | | | | | | | | | | | | | | |
+| bofu | | | | | | | | | | | | | | | | | | | | | |
+| kaka | | | | | | | | | | | | | | | | | | | | | |
+| Bob | | | | | | | | | | | | | | | | | | | | | |
+| Ric-Li-C | | | | | | | | | | | | | | | | | | | | | |
+| laios | | | | | | | | | | | | | | | | | | | | | |
+| gills | | | | | | | | | | | | | | | | | | | | | |
+| Heinlich | | | | | | | | | | | | | | | | | | | | | |
+| yoyo | | | | | | | | | | | | | | | | | | | | | |
+| ajie | | | | | | | | | | | | | | | | | | | | | |
+| Nicole | | | | | | | | | | | | | | | | | | | | | |
+| bityoume | | | | | | | | | | | | | | | | | | | | | |
+| Jack | | | | | | | | | | | | | | | | | | | | | |
+| Steven | | | | | | | | | | | | | | | | | | | | | |
+| bugmaker | | | | | | | | | | | | | | | | | | | | | |
+| zouyuxuan | | | | | | | | | | | | | | | | | | | | | |
+| Qi | | | | | | | | | | | | | | | | | | | | | |
+| Dason | | | | | | | | | | | | | | | | | | | | | |
+| vegetabledogdog | | | | | | | | | | | | | | | | | | | | | |
+| 7uppp | | | | | | | | | | | | | | | | | | | | | |
+| yan | | | | | | | | | | | | | | | | | | | | | |
+| nosalt | | | | | | | | | | | | | | | | | | | | | |
+| pest | | | | | | | | | | | | | | | | | | | | | |
+| Zemmer | | | | | | | | | | | | | | | | | | | | | |
+| SummerXJ | | | | | | | | | | | | | | | | | | | | | |
+| Alvin | | | | | | | | | | | | | | | | | | | | | |
+| SidWoong | | | | | | | | | | | | | | | | | | | | | |
+| justin | | | | | | | | | | | | | | | | | | | | | |
+| Derick | | | | | | | | | | | | | | | | | | | | | |
 <!-- END_COMMIT_TABLE -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- STATISTICALDATA_START -->
 <!-- STATISTICALDATA_END -->
 
-> 如果你是此次共学发起人，请进行以下操作进行自动化发放权限的设置，完成后请将这一部分内容从你的仓库中删掉。
-
-### 为您的组织 【残酷共学营】 创建具有邀请协作者权限的个人访问令牌
-
-要创建具有邀请协作者权限的个人访问令牌，请按照以下步骤操作：
-
-1. 导航到您的个人设置: 转到 https://github.com/settings/profile 并登录您的 GitHub 帐户。
-
-2. 访问个人访问令牌页面: 在左侧菜单中，单击 “开发者设置”，然后选择 “个人访问令牌”。
-
-3. 创建新令牌: 点击 “生成新令牌” 按钮。选择 classic 的
-
-4. 命名您的令牌: 在 “令牌名称” 字段中输入一个描述性名称，例如 `invite-collaborators`。
-
-5. 选择适当的范围: 在 “范围” 部分，选择授予您的令牌所需的权限。对于邀请协作者，您需要授予以下范围：
-
-- `repo:invite`：允许您的令牌创建存储库邀请。最好是给这个令牌赋予 repo 总权限
-- `admin:org` 权限的用户才能创建具有邀请协作者权限的个人访问令牌。
-
-6. 将令牌值添加到存储库 secret: 按照上述步骤将您的个人访问令牌值添加到您的存储库 secret 中，并将名称设置为 `PAT_WITH_INVITE_PERMISSIONS`。
-
-![image](https://github.com/user-attachments/assets/d7c06540-9076-4557-b911-e5e484a742bb)
-
-### 配置共学信息配置变量
-
-1. 配置这四个仓库变量(Repository variables)，注意不要添加**换行**，**空格**符号
-
-| Field Name  | Value                     | Comments                        |
-| ----------- | ------------------------- | ------------------------------- |
-| START_DATE  | 2024-06-24T00:00:00+00:00 | Start time                      |
-| END_DATE    | 2024-07-06T23:59:59+00:00 | End time                        |
-| FIELD_NAME  | EICL1st· Name             | Field name in the readme        |
-| FILE_SUFFIX | _EICL1st.md_              | Shared learning activity number |
-
-![image](https://github.com/user-attachments/assets/d5b6f504-9eea-4215-9848-056fc33f00f8)
