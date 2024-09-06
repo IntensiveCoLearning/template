@@ -55,8 +55,8 @@ timezone: Pacific/Auckland # 新西兰标准时间 (UTC+12)
 fantasy00lucky
 1. 自我介绍
    成都信息工程大学区块链专业学生，具备一定的区块链相关知识。
-2. 你认为你会完成本次残酷学习吗？
-    会！
+2. 你认为你会完成本次残酷学习吗？   
+    会的！
 ## Notes
 
 <!-- Content_START -->
