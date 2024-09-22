@@ -94,6 +94,8 @@ timezone: Asia/Shanghai
 ### 2024.09.21
 1. 开发FA示例demo
 
+### 2024.09.22
+1. 继续完成FAdemo
 
 ```
 <!-- Content_END -->
