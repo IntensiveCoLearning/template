@@ -183,4 +183,30 @@ init_module函数必须是私有的，不能返回任何参数
 ```
 ### 2024.09.21
 ### 2024.09.22
+函数
+ - Public functions
+   ```
+   public fun get_aptogotchi(owner_addr: address) { }
+   ```
+    - View Functions
+   - ```
+     #[view]
+     public fun get_name(user_addr: address): String acquires AptoGotchi { }
+     ```
+    - Inline Functions
+     ```
+     inline fun get_aptogotchi_internal(creator_addr: &address) { }
+     ```
+- Private Functions私有函数是合约中没有public修饰符的函数。其他模块（合约）无法访问它。
+  ```
+  fun get_aptogotchi_address(creator_addr: &address): (address) { }
+  ```
+
+### 2024.09.23
+
+### 2024.09.24
+
+### 2024.09.25
+
+### 2024.09.26
 <!-- Content_END -->
