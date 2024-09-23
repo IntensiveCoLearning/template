@@ -705,7 +705,7 @@ vector的语法深入学习
 ### 2024.09.22
 对比了signer和msg.sender的不同点，回忆OpenZepplin的owner相关内容和move的owner。
 ### 2024.09.23
-
+继续move的学习，应该只能完成move语法，不能进入aptos的完整学习。
 ### 2024.09.24
 
 ### 2024.09.25
