@@ -97,5 +97,8 @@ timezone: Asia/Shanghai
 ### 2024.09.22
 1. 继续完成FAdemo
 
+### 2024.09.23
+1. 复习项目基础知识
+
 ```
 <!-- Content_END -->
