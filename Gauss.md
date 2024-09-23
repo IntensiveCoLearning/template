@@ -658,7 +658,18 @@ Aptos的数字资产（DA）标准是一个现代化的非同质化代币（NFT�
 
 ### 2024.09.22
 
+Aptos 提供了一个 React Provider 和 Context，用于将 Aptos 钱包连接到 DApp。这个 Provider 允许开发者指定要支持的钱包，能够查询账户信息以及签署交易和消息，提供了一个标准接口来支持所有 Aptos 钱包，并且通过更新 Wallet Adapter 的依赖版本，能够轻松支持新钱包。
 
+主要步骤包括：
+
+1. 安装 @aptos-labs/wallet-adapter-react。
+2. 如果要支持“Legacy Standard Compatible”钱包，需安装对应插件；而符合 AIP-62 标准的钱包不需要额外安装插件。
+3. 在代码中导入 Aptos Wallet Adapter 以及任何遗留标准钱包的插件。
+4. 初始化 `AptosWalletAdapterProvider`，建议设置 `autoConnect` 为 `true`，并在 `plugins` 中添加非 AIP-62 标准的钱包。
+
+开发者还可以选择使用不同的 UI 包，如 Ant Design、MUI 或 shadcn/ui 来简化钱包选择器的创建。
+
+`useWallet` 提供了一些字段和函数，用于获取账户信息、网络状态以及执行钱包操作，包括连接、断开、签署交易、提交交易、签署消息、切换网络等。
 
 ### 2024.09.23
 
