@@ -518,7 +518,15 @@ module marketplace_addr::test_marketplace {
 请假！
 
 ### 2024.09.23
-Aptos包更新
+1. Create Aptos Dapp
+  ```
+cd your/workspace
+npx create-aptos-dapp@latest #Install create-aptos-dapp
+  ```
+3. Template
+ - NFT 铸造 dapp 模板: https://aptos.dev/en/build/create-aptos-dapp/templates/nft-minting-dapp
+4. Tools create-aptos-dapp utilizes
+
 ### 2024.09.24
 
 ### 2024.09.25
