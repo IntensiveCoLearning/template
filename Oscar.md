@@ -278,16 +278,20 @@ timezone: Asia/Shanghai
 
 ### 2024.09.20
 
-- 学习主题：Aptos Move （高级）有点难呀 👀
+- 学习主题：Aptos Move （高级）有点难 👀
   - 部署自己的代币水龙头了解
   - 铸币权 mint_ref  ，理解为一个实体，一把钥匙，这个钥匙只能开 Mint() 这个函数。你的合约要做的就是把这个钥匙找一个位置放起来，至于这把钥匙放在门口地垫下面（每个人都能拿到）；放在自己身上 （自己能拿到）；放在银行保险柜 （自己也拿不到），是合约要实现的逻辑。
   - Keyless 无私钥登陆 TODO 
 
-### 2024.09.21
-
-### 2024.09.22
-
 ### 2024.09.23
+
+- 学习主题：https://aptos.dev/zh/build/apis
+
+  - Aptos Fullnode :此 API 嵌入在 Fullnodes 中，提供了一种简单、低延迟但低级别的方式来读取状态和提交交易到 Aptos 区块链。它还支持交易模拟。
+
+  - 目前有两组 Aptos Labs API 部署：
+    1. [具有匿名访问和基于 IP 的速率限制的 API](https://aptos.dev/zh/network/nodes/networks)
+    2. [Beta\] 通过 Aptos Labs Developer Portal 进行身份验证和基于开发者账户的速率限制的 API](https://aptos.dev/zh/build/apis/aptos-labs-developer-portal)
 
 ### 2024.09.24
 ### 2024.09.25
