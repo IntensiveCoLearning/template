@@ -465,6 +465,66 @@ module marketplace_addr::test_marketplace {
 
 ### 2024.09.20
 
+1. Aptos keyless无私钥登陆
+  Aptos Keyless 允许用户从现有的 OpenID Connect (OIDC) 帐户（例如，使用 Google 登录；使用 Apple 登录）获得 Aptos 区块链帐户的所有权，而不是通过传统的密钥或助记词。
+  Aptos Keyless 预期的安全模型是“区块链账户=谷歌账户”。如果谷歌账户存在风险，则区块链账户也等同。
+好处在于：
+- 更高的安全性
+- 便捷性
+- 降低管理成本
+  
+2. Randomness 链上随机数
+   在区块链中，随机数的生成对于一些关键操作至关重要，比如加密货币的挖矿、智能合约的执行等。然而，由于区块链的去中心化特性，传统的随机数生成方法（如使用计算机的随机数生成器）可能存在被攻击或操纵的风险。
+为了解决这个问题，区块链技术采用了一些特殊的方法来生成链上随机数。其中一种常见的方法是使用可验证随机函数（Verifiable Random Function，VRF）。VRF 是一种密码学函数，它可以生成可验证的随机数，并且保证随机数的生成过程是不可预测和不可操纵的。
+
 ### 2024.09.21
+1. Package是在一个帐户下作为原子单元发布的模块的集合
+```
+├── Move.toml      (required)
+├── sources\       (required, stores move modules)
+│   └── aptogotchi.move
+├── build\         (generated, build output)
+├── scripts\       (optional, stores move scripts)
+│   └── script_batch_create_gotchi.move
+├── doc_templates\ (optional)
+|── tests\         (optional, test mode)
+└── examples\      (optional, test & dev mode)
+```
+要升级已发布的 Move 代码，只需尝试在之前发布的同一地址重新发布代码。
+2.   Modules是定义结构类型和对这些类型进行操作的函数的库。它允许任何人读取当前的管理地址。
+3. 函数
+ - Public functions
+   ```
+   public fun get_aptogotchi(owner_addr: address) { }
+   ```
+    - View Functions
+   - ```
+     #[view]
+     public fun get_name(user_addr: address): String acquires AptoGotchi { }
+     ```
+    - Inline Functions
+     ```
+     inline fun get_aptogotchi_internal(creator_addr: &address) { }
+     ```
+- Private Functions私有函数是合约中没有public修饰符的函数。其他模块（合约）无法访问它。
+  ```
+  fun get_aptogotchi_address(creator_addr: &address): (address) { }
+  ```
+4. 结构
+   Struct 支持原始类型（ integer 、 bool 、 address 、 vector和signer ）和其他结构（Aptos 框架提供的结构，如table和用户定义的结构）。
+   <img width="715" alt="image" src="https://github.com/user-attachments/assets/4a678bf0-365f-4d58-9fa9-44460b79a4b0">
+
+### 2024.09.22
+请假！
+
+### 2024.09.23
+
+### 2024.09.24
+
+### 2024.09.25
+
+### 2024.09.26
+
+### 2024.09.27
 
 <!-- Content_END -->

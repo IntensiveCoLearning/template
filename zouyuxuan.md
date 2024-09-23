@@ -169,6 +169,44 @@ event::emit(TransferEvent { sender: address,
 ### 2024.09.19
 学习aptos-move例子
 ### 2024.09.20
+学习aptos-move 中bonding_curve_launchpad例子
+合约初始化函数使用
+```
+init_module函数必须是私有的，不能返回任何参数
+
+ fun init_module(account: &signer) {
+        let signer_extender = object::generate_extend_ref(
+            &object::create_sticky_object(@bonding_curve_launchpad)
+        );
+        move_to(account, Pairs { signer_extender });
+    }
+```
 ### 2024.09.21
 ### 2024.09.22
+函数
+ - Public functions
+   ```
+   public fun get_aptogotchi(owner_addr: address) { }
+   ```
+    - View Functions
+   - ```
+     #[view]
+     public fun get_name(user_addr: address): String acquires AptoGotchi { }
+     ```
+    - Inline Functions
+     ```
+     inline fun get_aptogotchi_internal(creator_addr: &address) { }
+     ```
+- Private Functions私有函数是合约中没有public修饰符的函数。其他模块（合约）无法访问它。
+  ```
+  fun get_aptogotchi_address(creator_addr: &address): (address) { }
+  ```
+
+### 2024.09.23
+
+### 2024.09.24
+
+### 2024.09.25
+
+### 2024.09.26
 <!-- Content_END -->

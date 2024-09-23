@@ -700,9 +700,10 @@ aptos account create --account 地址
 ### 2024.09.20
 
 ### 2024.09.21
+vector的语法深入学习
 
 ### 2024.09.22
-
+对比了signer和msg.sender的不同点，回忆OpenZepplin的owner相关内容和move的owner。
 ### 2024.09.23
 
 ### 2024.09.24

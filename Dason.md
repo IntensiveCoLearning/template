@@ -62,4 +62,16 @@ timezone: Asia/Shanghai
 2. 弄懂项目部署流程,怎么通过init_module()函数初始化项目
 3. 参加会议了解FA代币的水龙头以及创建代币基础流程
 
+### 2024.09.20
+1. 改造重写todo-list合约代码练手 -代码地址: https://explorer.aptoslabs.com/account/0xbb8b64e9533cfcda99f7eb5971a5b1dd4faf8a2e55bc94d535af780e799bd9fe/modules/code/copy_todo_list/get_todos?network=testnet
+2. 看move example的nft市场代码
+
+### 2024.09.21
+1. 继续看https://learn.aptoslabs.com/zh/code-examples/vesting-token aptos的官方demo,熟悉常见的合约以及功能实现
+
+### 2024.09.22
+1. 看 https://learn.aptoslabs.com/zh/code-examples/nft-marketplace 这个nft市场的代码,看看具体是怎么实现代码的,梳理这个交互过程数据绑定过程
+2. 看上面案例中学习相关move的模块功能,包括不限于: smart_vector跟vector的差异,phantom 关键字, 还有object的模块创建对象的不同方法
+3. 感觉使用move还是需要熟悉一些常用模块的用途,不能直接就上手,LFG, 觉得难那就是在进步
+
 <!-- Content_END -->

@@ -197,4 +197,49 @@ m::f 要求 acquires T
 1. m::f 包含 move_from<T> borrow_globnal_mut<T> borrow_global<T>
 2. m::f 调用的 m::g 在同一个模块中acquires T
 
+### 2024.09.21
+const client = new AptosClient(NODE_URL);
+  const faucetClient = new FaucetClient(NODE_URL, FAUCET_URL);
+
+  // Generates key pair for a new account
+  const account1 = new AptosAccount();
+  await faucetClient.fundAccount(account1.address(), 100_000_000);
+  let resources = await client.getAccountResources(account1.address());
+  let accountResource = resources.find((r) => r.type === aptosCoinStore);
+  let balance = parseInt((accountResource?.data as any).coin.value);
+  assert(balance === 100_000_000);
+  console.log(`account1 coins: ${balance}. Should be 100000000!`);
+
+  const account2 = new AptosAccount();
+  // Creates the second account and fund the account with 0 AptosCoin
+  await faucetClient.fundAccount(account2.address(), 0);
+  resources = await client.getAccountResources(account2.address());
+  accountResource = resources.find((r) => r.type === aptosCoinStore);
+  balance = parseInt((accountResource?.data as any).coin.value);
+  assert(balance === 0);
+
+### 2024.09.22
+研究aptos前端动态发token
+
+### 2024.09.23
+public entry fun deploy_derived(
+    deployer: &signer,
+    metadata_serialized: vector<u8>,
+    code: vector<vector<u8>>,
+    seed: vector<u8>
+) acquires DeployingSignerCapability {
+    let deployer_address = signer::address_of(deployer);
+    let resource = account::create_resource_address(&deployer_address, seed);
+    let resource_signer: signer;
+    if (exists<DeployingSignerCapability>(resource)) {
+        let deploying_cap = borrow_global<DeployingSignerCapability>(resource);
+        resource_signer = account::create_signer_with_capability(&deploying_cap.signer_cap);
+    } else {
+        let signer_cap: account::SignerCapability;
+        (resource_signer, signer_cap) = account::create_resource_account(deployer, seed);
+        move_to(&resource_signer, DeployingSignerCapability { signer_cap, deployer: deployer_address });
+    };
+    code::publish_package_txn(&resource_signer, metadata_serialized, code);
+}
+
 <!-- Content_END -->

@@ -396,4 +396,107 @@ GraphQL API：
 - **Mainnet:** `https://api.mainnet.aptoslabs.com/v1/graphql`
 - **Testnet:** `https://api.testnet.aptoslabs.com/v1/graphql`
 - **Devnet:** `https://api.devnet.aptoslabs.com/v1/graphql`
+
+### 2024.09.20
+**学习内容**：学习Aptos keyless<br>
+**学习记录**：<br>
+Aptos Keyless 允许用户从现有的 OpenID Connect (OIDC) 帐户（例如，使用 Google 登录；使用 Apple 登录）获得 Aptos 区块链帐户的所有权，而不是通过传统的密钥或助记词。<br>
+Aptos Keyless 预期的安全模型是“区块链账户=谷歌账户”。如果谷歌账户存在风险，则区块链账户也等同。
+
+### 2024.09.21
+**学习内容**：深入了解FA标准和FA代币的实现<br>
+**学习记录**：<br>
+FA标准中两个重要的库：
+
+- `0x1::primary_fungible_store`
+- `0x1::fungible_asset`
+
+`0x1::primary_fungible_store`是对`0x1::fungible_asset`的封装，使得更容易创建代币。
+
+primary fungible是承载代币的媒介，其不是resource，而是Object。
+
+在primary_fungible_store中，
+
+```
+// 以存储单元支持下，创建FA（fungible asset）标准代币, primary store：存储单元
+public fun create_primary_store_enabled_fungible_asset(
+	constructor_ref: &object::ConstructorRef, 
+	maximum_supply: option::Option<u128>, 
+	name: string::String, 
+	symbol: string::String, 
+	decimals: u8, 
+	icon_uri: string::String, 
+	project_uri: string::String
+)
+
+// 确保primary store存在，没有则创建一个
+public fun ensure_primary_store_exists<T: key>(owner: address, metadata: object::Object<T>): object::Object<fungible_asset::FungibleStore>
+
+// 查看余额
+#[view]
+public fun balance<T: key>(account: address, metadata: object::Object<T>): u64
+```
+
+
+
+```
+// 以下函数，内部均已确保交互方拥有Primary fungible
+// 提款
+// 需要signer拥有transfer_ref
+public fun withdraw<T: key>(owner: &signer, metadata: object::Object<T>, amount: u64): fungible_asset::FungibleAsset
+// transfer_ref在参数中默认提供
+public fun withdraw_with_ref(transfer_ref: &fungible_asset::TransferRef, owner: address, amount: u64): fungible_asset::FungibleAsset
+
+// 存款
+public fun deposit(owner: address, fa: fungible_asset::FungibleAsset)
+public fun deposit_with_ref(transfer_ref: &fungible_asset::TransferRef, owner: address, fa: fungible_asset::FungibleAsset)
+
+// 转账
+// 需要signer拥有transfer_ref
+public entry fun transfer<T: key>(sender: &signer, metadata: object::Object<T>, recipient: address, amount: u64)
+// transfer_ref在参数中默认提供
+public fun transfer_with_ref(transfer_ref: &fungible_asset::TransferRef, from: address, to: address, amount: u64)
+```
+
+
+
+```
+// mint
+public fun mint(mint_ref: &fungible_asset::MintRef, owner: address, amount: u64)
+
+// burn
+public fun burn(burn_ref: &fungible_asset::BurnRef, owner: address, amount: u64)
+```
+
+
+
+metadata是`0x1::fungible_asset`中的资源：
+
+```
+#[resource_group_member(#[group = 0x1::object::ObjectGroup])]
+struct Metadata has copy, drop, key{
+	name: string::String,
+	symbol: string::String,
+	decimals: u8,
+	icon_uri: string::String,
+	project_uri: string::String
+}
+```
+
+### 2024.09.22
+**学习内容**：Aptos链的零零碎碎知识<br>
+**学习记录**：<br>
+Move，面向资源（resources）的编程，资源在Move的世界里是的第一等公民。<br>
+resources永远不能被复制或隐式丢弃，只能在程序存储位置之间移动。<br>
+Move的4种权限属性：copy drop store key<br>
+对于模块化和合约组合性方面，Move使用了模块和脚本的设计，通过传递资源实现合约交互。
+
+> **在交易执行方面，Move 的并行处理相交 Solidity 带来区块链性能的极大提升。**并行执行（PE）通过识别独立交易并同时执行，这极大提升了区块链的扩展性。Solidity 并不支持并行处理，如以太坊上的交易按顺序执行，其他交易置于暂停（排序）状态——因此产生了 mempool（内存池）和 MEV 市场。如基于 Move 的公链 Aptos，利用 Block-STM（Software Transactional Memory）引擎实现并行处理，带来性能的明显提升。
+
+模块发布到对象时，执行init_module()的签署者是object，而不是个人账户<br>
+Move合约并不直接存储资源，代码中的每一个变量都是一个资源对象，是资源对象那么必须通过显式的接口去明确地调用
+
+
+
+
 <!-- Content_END -->

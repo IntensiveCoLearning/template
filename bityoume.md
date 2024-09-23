@@ -64,19 +64,19 @@ timezone: Asia/Shanghai
 
 ### 2024.09.19
 
-笔记内容
+无
 
 ### 2024.09.20
 
-笔记内容
+无
 
 ### 2024.09.21
 
-笔记内容
+学习Aptos账户，参考资料：[详解 Aptos 的 Accounts 账户及其类型](https://mp.weixin.qq.com/s/QpDzqIywCD0drl2EhMiYrQ)
 
 ### 2024.09.22
 
-笔记内容
+学习Aptos Move基础类型，学习资料：[Primitive Types](https://aptos.dev/en/build/smart-contracts/book/)
 
 ### 2024.09.23
 

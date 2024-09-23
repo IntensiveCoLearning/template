@@ -873,19 +873,401 @@ Move.toml 是 Move 项目中的配置文件，负责管理依赖项和地址。�
 
 ### 2024.09.20
 
-笔记内容
+token::create_named_token
+token::create
+<https://aptos.dev/zh/build/apis>
+
+```rust
+module red_packet::red_packet {
+    use aptos_framework::fungible_asset::{Self, MintRef, TransferRef, BurnRef};
+    use aptos_framework::object::{Self, Object};
+    use aptos_framework::primary_fungible_store;
+    use std::signer;
+    use std::string::utf8;
+    use std::option;
+
+    #[test_only]
+    use aptos_framework::account;
+
+    const SEED: vector<u8> = b"RedPacketFA";
+
+    struct MyMintRef has key {
+        admin: address,
+        mint_ref: MintRef
+    }
+
+    struct MyTransferRef has key {
+        transfer_ref: TransferRef
+    }
+
+    struct MyBurnRef has key {
+        burn_ref: BurnRef
+    }
+
+    fun init_module(admin: &signer) {
+        let constructor_ref = object::create_named_object(admin, SEED);
+
+        primary_fungible_store::create_primary_store_enabled_fungible_asset(
+            &constructor_ref,
+            option::none(),
+            utf8(b"RedPacketFA Coin"),
+            utf8(b"RPFA"),
+            8,
+            utf8(b"https://aptos.dev/docs/aptos-black.svg"),
+            utf8(b"https://github.com/qiaopengjun5162")
+        );
+
+        let mint_ref = fungible_asset::generate_mint_ref(&constructor_ref);
+
+        let transfer_ref = fungible_asset::generate_transfer_ref(&constructor_ref);
+
+        let burn_ref = fungible_asset::generate_burn_ref(&constructor_ref);
+
+        move_to(
+            admin,
+            MyMintRef { admin: signer::address_of(admin), mint_ref }
+        );
+
+        move_to(admin, MyBurnRef { burn_ref });
+
+        move_to(admin, MyTransferRef { transfer_ref });
+    }
+
+    entry fun mint(sender: &signer, amount: u64) acquires MyMintRef {
+        let my_mint_ref = borrow_global<MyMintRef>(@red_packet);
+        let fa = fungible_asset::mint(&my_mint_ref.mint_ref, amount);
+        primary_fungible_store::deposit(signer::address_of(sender), fa);
+    }
+
+    /// Check if the given signer is the admin.
+    public fun is_owner(owner: &signer): bool acquires MyMintRef {
+        let my_mint_ref = borrow_global<MyMintRef>(@red_packet);
+        return my_mint_ref.admin == signer::address_of(owner)
+    }
+
+    #[view]
+    /// Get the balance of `account`'s primary store.
+    public fun balance<T: key>(account: address, metadata: Object<T>): u64 {
+        primary_fungible_store::balance(account, metadata)
+    }
+
+    #[view]
+    public fun is_balance_at_least<T: key>(
+        account: address, metadata: Object<T>, amount: u64
+    ): bool {
+        primary_fungible_store::is_balance_at_least(account, metadata, amount)
+    }
+
+    #[test]
+    fun test() acquires MyMintRef {
+        let user_signer = account::create_account_for_test(@red_packet);
+        init_module(&user_signer);
+
+        let user1_signer = account::create_account_for_test(@0x12345);
+        mint(&user1_signer, 1 * 1000 * 1000 * 100);
+    }
+}
+
+```
 
 ### 2024.09.21
 
-笔记内容
+<https://www.youtube.com/watch?v=bny8hBEpBmw>
+Resource Group & Object Model
+
+Resource Group
+底层存储系统
+更优化的使用存储系统， 节省gas费
+ledger 完全二叉树  Transaction 叶子节点 Merkle Tree 共识
+tree 链  证明 缺点 中间节点
+区块的概念只存在于共识
+Transaction hash + 状态树 +  Event Tree = TransactionInfo
+key = Hash(Account address, Access path)
+Value = Serialized byte array
+resource_group module address global
+Only struct and fun can have attributes
+手动调整 Gas Cost
+
+Flow of Object Creation
+
+```rust
+// 1. Create ConstructorRef
+let object_cref: ConstructorRef = object::create_object(aaron_address);
+let object_signer = generate_signer(&object_cref);
+move_to(&object_signer, X {});
+```
+
+object convert
+有些 object 是不能被删除的
+Move
+类型系统
+
+- 将一个语言中所有能表达的值分类成一个个子集
+- 调用的时候就可以通过规定实现方只能接受哪种子集
+传统语言结构
+- 语言
+- 编译器
+- 执行码 LLVM jvm
+编译器完成类型检查
+- 静态检查保证类型正确
+- 运行时不再检查
+- 所以字节码不需要保留类型信息
+智能合约不同于传统程序
+- 合约调用方被调用方不一定由同一作者完成
+- 为什么 Solidity 中没有结构体呢？
+Move 不同于 Solidity
+- 字节码中保留了类型信息
+- 上链代码保证互相的类型安全
 
 ### 2024.09.22
 
-笔记内容
+<https://www.youtube.com/watch?v=wlbHrHtvyIk>
+在 Aptos 上实现简单的 NFT 市场
+交易市场的实现逻辑
+目标：要实现一个简单的 NFT 市场
+首先要考虑：
+
+1. NFT存放在哪里
+2. 挂单的信息存放在哪里
+3. 用户如果购买/取消
+
+#### 用户可以挂单/ 取消/ 购买NFT
+
+#### 1. NFT存放在哪里
+
+   NFT 是可以存储起来的
+
+- Table
+- Vector
+  NFT 存放在用户的资源下
+  用 Table 保存所有挂单状态的NFT
+
+```rust
+struct Token has store {
+  id: TokenId,
+  amount: u64,
+}
+```
+
+#### 2. 挂单的信息存放在哪里
+
+   用户挂单时需要输入
+
+1. 挂单的NFT 的 TokenId
+2. 数量和价格
+   如果将这些信息存储起来
+
+#### 3. 用户如何购买和取消
+
+购买：
+
+- 需要知道挂单者的地址
+- 需要知道挂单 Token Id 以及价格
+取消：
+- 必须是自己的挂单
+- 需要知道挂单 Token Id
+
+为什么需要知道挂单者的地址
+合约的存储结构
+挂单者 NFT TokenStoreEscrow  取出NFT  购买者
+挂单者 挂单信息 TokenListings 查看挂单信息检查妇科 购买者
+
+代码详解
+
+- 交易市场的实现 Listing
+组合 Token Id
+取出要挂单的NFT
+卖家是否挂过单，没有则发放一个挂单集合的结构
+将 NFT 放入挂单集合结构中
+将挂单信息存放到 Table
+
+- 交易市场的实现 Cancel
+从全局存储中找到自己的挂单信息集合
+组合 Token Id
+判断是否有挂单状态
+删除挂单信息
+从全局存储中找到自己的挂单 NFT 集合
+判断是否有这个 NFT
+取出NFT
+将NFT 放入钱包
+
+- 交易市场的实现 Buy
+组合 Token Id
+从全局存储中找到卖家的挂单信息集合
+检查金额是否充足
+从全局存储中找到卖家的挂单 NFT 集合
+检查购买的金额是否满足
+检查挂单的 NFT的数量是否满足
+取出NFT
+将 NFT 发送到买家钱包
+将购买的金额发送到卖家钱包
+如果买空则销毁挂单信息
+
+mint_ref 就是铸币权
+看你怎么用它
+mint_ref 理解为一个实体，一把钥匙，这个钥匙只能开 Mint() 这个函数
+你的合约要做的就是把这个钥匙找一个位置放起来
+
+至于这把钥匙
+
+- 放在门口地垫下面（每个人都能拿到）
+- 放在自己身上 （自己能拿到）
+- 放在银行保险柜 （自己也拿不到）
+
+是合约要实现的逻辑
+Token 的元数据是 Object<Metadata> ，FA 的实体是 FungibleAsset
+Object<Metadata> 相当于 Solidity 中的 Token 地址
+FungibleAsset  是实例、资源、纸币的实体，不仅仅是数字
 
 ### 2024.09.23
 
-笔记内容
+[pontem](https://playground.pontem.network/)
+<https://www.youtube.com/watch?v=r9KDv-_j16A>
+Aptos：Move 语言初探
+目录
+
+- Move 起源
+- 现今智能合约的问题
+- Move 的改善
+- Demo
+
+Move 起源
+
+- Move是一种基于 Rust 的语言
+- 起初是专门为 Meta 的区块链项目 Diem 开发的
+- 目的是需要一种可以精准描述资产的语言
+- 愿景是希望成为区块链语言的 JavaScript
+
+资产定义
+稀缺性
+应控制系统中的资产供应，复制现有资产应当被禁止，且创建新资产应该为一种特权
+资产所有权的权限管理
+系统中的参与者资产应该能受到资产控管条例的保护
+现今智能合约的问题
+稀缺性是不可扩展的
+
+- 原生代币的稀缺性：区块链的原生代币（ETH...）通常具有内建的稀缺性机制
+- 智能合约代币的问题：但这种稀缺性无法直接扩展到基于智能合约创建的代币（如 ERC-20 代币）
+- 手动实现的风险：开发者必须手动实现稀缺性逻辑，这增加了出错和安全漏洞的风险
+
+```rust
+function transfer(address to, uint256 amount) public {
+    require(balance[msg.sender] >= amount, "Insufficient balance");
+    balance[msg.sender] -= amount;
+    balance[to] += amount * 2; // 接收者获得两倍数量，违法稀缺性
+}
+```
+
+资产所有权
+
+- 资产不存在用户的钱包中，而是透过智能合约的状态分配
+重入攻击(Reentrancy Attack)
+- 你只有一笔存款，但你却可以提款两次
+
+```rust
+function withdraw(uint256 amount) public {
+    require(balance[msg.sender] >= amount, "Insufficient balance");
+    balance[msg.sender] -= amount;
+    (bool success, ) = msg.sender.call{value: amount * 2}("");
+    require(success, "Transfer failed");
+}
+
+function withdraw(uint256 amount) public {
+    require(balance[msg.sender] >= amount, "Insufficient balance");
+   
+    (bool success, ) = msg.sender.call{value: amount }("");
+    require(success, "Transfer failed");
+     balance[msg.sender] -= amount;
+}
+```
+
+Move 的改善
+资源（Resource）导向
+
+- 资源作为一等公民，具有自己的生命周期和规则
+
+```rust
+struct CoinStore<phantom CoinType> has key {
+  coin: Coin<CoinType>,
+}
+
+struct Coin<phantom CoinType> has store {
+  value: u64,
+}
+```
+
+- 所有权明确定义
+
+```rust
+public fun transfer_coin<CoinType> (
+  from: &mut CoinStore<CoinType>,
+  to: &mut CoinStore<CoinType>,
+  amount: u64,
+) {
+  let coin = withdraw(&mut from.coin, amount);
+  deposit(&mut to.coin, coin);
+}
+```
+
+- 编译时检查
+能力属性定义
+ability 定义
+Key 允许一个类型直接存在于区块链上，并且存属于特定的账户
+store 允许一个值被存储在区块链的全局状态中或作为其他结构的一部分
+copy 允许一个值在区块链上被复制，而不仅是被移动
+drop 允许一个值在区块链上被丢弃，无需特别处理
+环境准备
+- Aptos CLI
+- Aptos TypeScript SDK
+- Aptos Wallet Adapter
+- Create React App
+- node and npm
+网络
+Mainnet
+- APT 的价值： 有价值， 不能乱花
+- 保存期限：永久
+Testnet
+- APT 的价值： 随便花
+- 保存期限：永久
+Devnet
+- APT 的价值： 随便花
+- 保存期限：每个礼拜刷新
+DEMO
+在 Aptos Move 中，init_module 是模块的初始化函数，用于在模块部署时执行一些必要的初始化逻辑。例如，创建资源、配置模块的初始状态等。如果你的模块不需要执行这些初始化操作，那么你可以选择不写 init_module。
+ • 如果模块需要在部署时执行某些操作，则必须写 init_module。
+ • 如果没有初始化需求，init_module 可以不写。
+exists<T>(address) 是 Move 中的一个内置函数，它用来判断某个地址上是否已经存储了某种类型的资源（T 类型）。
+
+在 Move 中生成签名者 (`signer`) 的主要原因是为了确保操作权限和安全性。签名者是代表一个地址或者对象进行交易的实体，拥有该地址或对象的授权。因此，生成签名者的主要作用是为了控制特定资源或对象的访问权限，确保只有合法的实体才能操作它们。
+
+### 具体原因包括
+
+1. **权限控制**：
+   - `signer` 是 Move 中用来授权对资源或对象执行敏感操作的机制。只有持有合法 `signer` 的人，才能对相关的资源进行修改或交互操作。
+   - 生成对象的 `signer` 可以确保后续对该对象的操作是经过授权的，防止未经授权的访问或操作。
+
+2. **安全性**：
+   - 在链上操作时，所有操作都是公开的。通过使用签名者，可以验证每个操作的合法性。生成的签名者可以确保只有特定的用户或特定对象持有的权限才能修改对象状态。
+   - 例如，当一个用户创建了一个 `TodoList` 对象，生成该对象的签名者可以用来确保只有这个 `TodoList` 的拥有者才能修改或删除它。
+
+3. **资源所有权的确认**：
+   - 在 Move 中，资源的所有权是一个核心概念，资源永远不能被复制或丢弃。通过生成与对象关联的签名者，可以证明某个地址或对象对资源的拥有权。
+   - 如果你想操作某个对象的内部状态，比如修改其中的数据，生成该对象的签名者是证明你拥有该对象并有权操作它的方式。
+
+4. **对象的独立性**：
+   - 每个对象都可以有自己独立的签名者，这意味着对象本身可以有授权执行的行为。生成签名者的目的是赋予对象权限，以便对象本身可以执行与其相关的操作。
+   - 例如，一个 `TodoList` 对象可以有自己的签名者，确保只有该对象的所有者或创建者才能对其进行修改或操作。
+
+### 实例化对象签名者的场景
+
+- 当你创建一个新对象时（比如 `TodoList`），可能需要后续操作来修改、删除或添加数据。通过生成对象签名者，后续对该对象的操作必须通过该签名者来进行，这确保了对象的操作权限只授予了正确的实体。
+- 如果你允许其他用户在对象中执行某些操作（如共享资源或分配任务），你可能会根据该签名者的权限控制他们能做什么。
+
+### 举例
+
+在你的代码中，生成 `obj_holds_todo_list` 对象的签名者后，可以在后续操作中，用该签名者来执行对 `TodoList` 的更新操作。例如，当你想要添加一项任务到 `TodoList` 中时，只有通过持有正确签名者的用户才可以进行操作，防止其他用户对不属于自己的 `TodoList` 进行修改。
+
+总结来说，生成签名者是为了确保操作权限、安全性、资源所有权的确认以及对象的独立性。通过签名者机制，可以有效地管理链上对象和资源的访问和操作权限。
 
 ### 2024.09.24
 

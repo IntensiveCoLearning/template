@@ -485,4 +485,147 @@ module my_addr::fungible_asset_example {
 }
 ```
 
+### 2024.09.20
+實測了Aptos中的 "Connect" 功能，基本上是很容易使用，使用過程沒有遇到困難。
+
+首先需要安裝Aptos Wallet Adapter
+```
+pnpm add @aptos-labs/wallet-adapter-react
+```
+
+AptosConnect is auto-added to the package, so no need to add it as a plugin. If you want to show other wallets you can include them in the plugins.
+
+```
+  import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
+ 
+  const wallets = [new AnyOtherWalletYouWantToInclude()];
+  <AptosWalletAdapterProvider
+    plugins={wallets}
+    autoConnect={true}
+    optInWallets={["Petra"]}
+    dappConfig={{ network: network.MAINNET, aptosConnectDappId: "dapp-id" }}>
+      <App >
+  </AptosWalletAdapterProvider>
+```
+
+Send a transaction
+```
+const { signAndSubmitTransaction } = useWallet();
+ 
+const transaction: InputTransactionData = {
+  data: {
+    function: '0x1::coin::transfer',
+    typeArguments: [APTOS_COIN],
+    functionArguments: [account.address, 1],
+  },
+};
+ 
+const txn = await signAndSubmitTransaction(transaction);
+```
+
+### 2024.09.21
+The Digital Asset (DA) standard is a modern Non-Fungible Token (NFT) standard for Aptos. NFTs represent unique assets on-chain, and are stored in collections. These NFTs can be customized to later be transferred, soulbound, burned, mutated, or customized via your own smart contracts.
+
+* smart contract testing:
+```
+use aptos_token_objects::collection;
+use std::option::{Self, Option};
+ 
+public entry fun create_collection(creator: &signer) {
+    let max_supply = 1000;
+    let royalty = option::none();
+    
+    // Maximum supply cannot be changed after collection creation
+    collection::create_fixed_collection(
+        creator,
+        "My Collection Description",
+        max_supply,
+        "My Collection",
+        royalty,
+        "https://mycollection.com",
+    );
+}
+```
+
+### 2024.09.22
+繼續學習Aptos Digital Asset (DA) Standard，
+如果需要用到無限制的供應，可以用這個集合 - collection::create_unlimited_collection:
+
+```
+use std::option::{Self, Option};
+ 
+public entry fun create_collection(creator: &signer) {
+    let royalty = option::none();
+ 
+    collection::create_unlimited_collection(
+        creator,
+        "My Collection Description",
+        "My Collection",
+        royalty,
+        "https://mycollection.com",
+    );
+}
+```
+
+另外，也可以自定義一個集合，
+Since each Collection is a Move Object, you can customize it by generating permissions called Refs. Each Ref allows you to modify an aspect of the Object later on. Beyond the normal Object Refs, Collections can also get a MutatorRef by calling get_mutator_ref like so:
+
+```
+use std::option::{Self, Option};
+ 
+public entry fun create_collection(creator: &signer) {
+    let royalty = option::none();
+    let collection_constructor_ref = &collection::create_unlimited_collection(
+        creator,
+        "My Collection Description",
+        "My Collection",
+        royalty,
+        "https://mycollection.com",
+    );
+    let mutator_ref = collection::get_mutator_ref(collection_constructor_ref);
+    // Store the mutator ref somewhere safe
+}
+```
+
+### 2024.09.23
+閱讀Aptos Move v2、Move Objects
+* Move Objects
+https://aptos.dev/en/build/smart-contracts/objects
+```
+module my_addr::object_playground {
+  use std::signer;
+  use std::string::{Self, String};
+  use aptos_framework::object::{Self, ObjectCore};
+  
+  struct MyStruct1 {
+    message: String,
+  }
+  
+  struct MyStruct2 {
+    message: String,
+  }
+ 
+  entry fun create_and_transfer(caller: &signer, destination: address) {
+    // Create object
+    let caller_address = signer::address_of(caller);
+    let constructor_ref = object::create_object(caller_address);
+    let object_signer = object::generate_signer(constructor_ref);
+    
+    // Set up the object by creating 2 resources in it
+    move_to(&object_signer, MyStruct1 {
+      message: string::utf8(b"hello")
+    });
+    move_to(&object_signer, MyStruct2 {
+      message: string::utf8(b"world")
+    });
+ 
+    // Transfer to destination
+    let object = object::object_from_constructor_ref<ObjectCore>(
+      &constructor_ref
+    );
+    object::transfer(caller, object, destination);
+  }
+}
+```
+
 <!-- Content_END -->

@@ -207,9 +207,29 @@ FA为Aptos提供了一个灵活、安全、标准化的可替代资产框架,使
  -  [x] 编写第一个aptos move合约
  -  [ ] https://explorer.aptoslabs.com/txn/0xa19cedda225355eb4fa5cfc15c5c5d3bd00cd5fc7cdd43b667e44e16152ef471/userTxnOverview?network=testnet 
 ### 2024.09.20
- -  [ ] 
+```
+#[event]
+struct MessageChange has drop, store {
+    account: address,
+    from_message: string::String,
+    to_message: string::String,
+}
+```
+这定义了一个名为MessageChange的事件结构。#[event]属性表明这是一个事件。它包含三个字段：触发事件的账户地址，以及消息更改前后的内容。
 ### 2024.09.21
- -  [ ] 
+```
+#[view]
+public fun get_message(addr: address): string::String acquires MessageHolder {
+    assert!(exists<MessageHolder>(addr), error::not_found(ENO_MESSAGE));
+    borrow_global<MessageHolder>(addr).message
+}
+```
+这是一个公共函数get_message：
+#[view]属性表示这是一个只读函数。
+函数接受一个地址参数，返回一个字符串。
+acquires MessageHolder表示这个函数会访问MessageHolder资源。
+函数首先检查指定地址是否存在MessageHolder资源，如果不存在则抛出错误。
+如果存在，函数返回该地址下MessageHolder资源中的message字段。
 ### 2024.09.22
  -  [ ] 
 ### 2024.09.23
