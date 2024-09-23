@@ -69,11 +69,21 @@ aptos move init --name cofirst
 
 ### 2024.09.21
 听闻有了中文页面，阅读起来舒服多了，以前英文的也不是不能看，就是费眼。。。
+
 https://aptos.dev/zh/build/apis
+
 持续推进ing
 
 ### 2024.09.22
 研读新版本V2，真棒！！！赞一个
+
 https://movetofuns.dev/aptos101/movev2/
+
+### 2024.09.23
+导师已经跟新了movev2的小问题,可以正常调试代码了
+
+继续推进项目的研发工作
+
+
 
 <!-- Content_END -->
