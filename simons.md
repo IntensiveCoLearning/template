@@ -133,4 +133,8 @@ score 中的计分逻辑测试仍然存在 bug
 
 添加 LOGO 和menu
 
+### 2024.09.24
+
+使用 threejs 添加粒子背景
+
 <!-- Content_END -->
