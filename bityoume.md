@@ -84,7 +84,7 @@ timezone: Asia/Shanghai
 
 ### 2024.09.24
 
-笔记内容
+[示例学习：transfer_coin.ts](https://bityoume.github.io/intensive-colearning-aptos/eg_transfer_coin_ts.html)
 
 ### 2024.09.25
 
