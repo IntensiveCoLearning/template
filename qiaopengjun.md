@@ -1271,7 +1271,111 @@ exists<T>(address) 是 Move 中的一个内置函数，它用来判断某个地�
 
 ### 2024.09.24
 
-笔记内容
+let signer_cap = resource_account::retrieve_resource_account_cap(swap_signer, @deployer);
+这个是需要手动创建一个 resource account
+因为老版的 Coin 必须通过当前合约创建
+现在的 FA 应该没有这个问题了
+
+Aptos Prover
+Aptos test
+aptos move test
+ensures
+在 Aptos Move 中，`ensures` 是一个用于函数规范的关键字，确保某个条件在函数执行结束后保持为真。它通常用于智能合约中的验证，以确保在函数执行前后保持状态的一致性。`ensures` 关键字和前置条件的 `requires` 类似，但 `ensures` 主要用于定义函数执行后的状态。
+
+以下是一个简单的 Aptos Move 代码示例，展示如何使用 `ensures`：
+
+```move
+module Example {
+
+    struct User has key {
+        balance: u64,
+    }
+
+    public fun add_funds(user: &mut User, amount: u64) {
+        let old_balance = user.balance;
+        user.balance = old_balance + amount;
+
+        // Ensures that the balance has increased by the expected amount
+        ensures user.balance == old_balance + amount;
+    }
+}
+```
+
+### 解释说明
+
+- `ensures` 在这里用于确认函数 `add_funds` 执行完毕后，用户的余额 `balance` 增加了 `amount`。
+- 如果 `ensures` 中的条件在函数结束后不为真，Move 验证器将抛出一个错误。
+
+在 Move 中，`ensures` 帮助开发者在智能合约中保持逻辑的正确性，确保状态更新符合预期，防止逻辑错误或意外行为。
+
+### 使用 `ensures` 的主要目的
+
+1. **验证合约执行后的状态**：确保函数执行后的结果符合预期。
+2. **增强代码可读性和可靠性**：开发者可以通过这种声明式的方式清晰地表达合约的预期行为。
+3. **安全性保证**：通过定义函数执行后的预期状态，确保合约在不同状态转换中的安全性。
+
+这是 Aptos Move 中一种常见的编程模式，特别适用于金融或复杂逻辑的智能合约开发场景。
+
+是的，Aptos Move 中确实有 `assert`，它与 `ensures` 在某些方面类似，都用于验证条件，但它们的作用场景和使用方式不同。
+
+### **`assert` 和 `ensures` 的区别**
+
+1. **`assert` 是运行时检查：**
+   - `assert` 在函数执行过程中主动验证某个条件，如果条件不满足，就立即停止执行并抛出错误。
+   - 用于在代码中强制检查某些条件，防止不期望的逻辑执行，通常出现在函数执行的中间或某个特定步骤。
+
+   **示例：**
+
+   ```move
+   module Example {
+       struct User has key {
+           balance: u64,
+       }
+
+       public fun withdraw_funds(user: &mut User, amount: u64) {
+           // 运行时检查：确保余额足够
+           assert!(user.balance >= amount, 1); // 如果余额不足，停止执行并抛出错误
+           user.balance = user.balance - amount;
+       }
+   }
+   ```
+
+   在这个例子中，`assert` 用于在 `withdraw_funds` 函数中确保用户余额足够，如果不够则终止执行。
+
+2. **`ensures` 是静态验证：**
+   - `ensures` 是一个函数执行后使用的后置条件，用于静态验证函数执行结束后某个条件是否满足。它不是在函数执行中进行即时检查，而是用于描述函数在返回时必须保证的状态。
+   - 通常用于智能合约的形式化验证，帮助验证器在编译时检查代码逻辑是否正确。
+
+   **示例：**
+
+   ```move
+   module Example {
+       struct User has key {
+           balance: u64,
+       }
+
+       public fun add_funds(user: &mut User, amount: u64) {
+           let old_balance = user.balance;
+           user.balance = old_balance + amount;
+
+           // 确保余额更新后的状态正确
+           ensures user.balance == old_balance + amount;
+       }
+   }
+   ```
+
+   在这个示例中，`ensures` 用于确保在 `add_funds` 函数执行完毕后，`user.balance` 的值是正确的。它不是在函数中动态检查，而是帮助 Move 验证器在静态分析阶段确保代码逻辑的正确性。
+
+### **`assert` 和 `ensures` 的使用场景：**
+
+- **`assert`：** 适用于你想在函数运行时强制检查的条件，确保某些状态在运行时不会出错。它通常用来防止一些非法操作，比如转账余额不足等。
+  
+- **`ensures`：** 主要用于形式化验证（formal verification），确保在函数执行完毕后，合约状态符合预期。在安全性要求较高的合约开发中，`ensures` 提供了额外的保证，尤其是在编译时静态分析阶段。
+
+### 总结
+
+- **`assert`**：运行时条件检查，适用于防止非法操作或逻辑错误。
+- **`ensures`**：编译时的后置条件检查，确保函数结束后的状态符合预期，适用于形式化验证和更高层次的安全性保证。
 
 ### 2024.09.25
 

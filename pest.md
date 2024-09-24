@@ -104,4 +104,8 @@ timezone: Asia/Shanghai
 
 * 学习[Aptos Dapp Telegram Clicker Game Mini App Template](https://aptos.dev/en/build/create-aptos-dapp/templates/clicker-game-tg-mini-app)
 
+### 2024.09.23
+
+* 写Aptos 黑客松的项目，Sui Meet项目前端页面迁移；
+
 <!-- Content_END -->

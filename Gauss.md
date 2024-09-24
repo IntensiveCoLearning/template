@@ -673,7 +673,55 @@ Aptos 提供了一个 React Provider 和 Context，用于将 Aptos 钱包连接�
 
 ### 2024.09.23
 
+Move语言中的 `vector<T>` 是唯一的原生集合类型，它是一个同质集合，可以通过在末端添加或移除元素来动态增长或缩减。`vector<T>` 可以使用任意类型 `T` 进行实例化，如 `vector<u64>`、`vector<address>` 等。
 
+### Vector字面量：
+
+- 空Vector: `vector[]`，表示空的 `vector<T>`。
+- 非空Vector: `vector[e1, ..., en]`，表示包含n个元素的向量。
+
+使用字面量时，类型可以通过元素推断，也可以显式指定类型，如 `vector<u8>[]`。
+
+#### 字节数组字面量：
+
+- `vector<u8>` 常用于表示字节数组，比如公钥或哈希值。
+- 支持两种特殊字面量：**字节字符串**（如 `b"Hello!"`）和 **十六进制字符串**（如 `x"48656C6C6F210A"`）。
+
+### Vector的操作：
+
+Move标准库的 `std::vector` 模块提供了一些常用操作：
+
+1. **创建和检查空向量**：
+
+   - `vector::empty<T>()`：创建空向量。
+   - `vector::is_empty<T>(self: &vector<T>)`：检查向量是否为空。
+
+3. **增删操作**：
+
+   - `vector::push_back<T>(self: &mut vector<T>, t: T)`：向末尾添加元素。
+   - `vector::pop_back<T>(self: &mut vector<T>)`：移除并返回最后一个元素。
+
+4. **访问和修改**：
+
+   - `vector::borrow<T>(self: &vector<T>, i: u64)`：返回第i个元素的不可变引用。
+   - `vector::borrow_mut<T>(self: &mut vector<T>, i: u64)`：返回第i个元素的可变引用。
+   - `vector::swap<T>(self: &mut vector<T>, i: u64, j: u64)`：交换向量中两个索引位置的元素。
+
+5. **销毁和拼接**：
+   
+   - `vector::destroy_empty<T>(self: vector<T>)`：销毁一个空向量。
+   - `vector::append<T>(self: &mut vector<T>, other: vector<T>)`：将另一个向量的元素添加到当前向量末尾。
+
+### 索引操作（Move 2.0）：
+
+支持通过方括号进行索引操作，简化了语法，例如：
+- `&v[i]` 等价于 `vector::borrow(&v, i)`。
+- `v[i] = x` 等价于 `*vector::borrow_mut(&mut v, i) = x`。
+
+### 特殊行为：
+
+- 如果向量中的元素类型不支持 `drop`，则必须显式销毁向量，不能隐式丢弃。
+- 只有当元素类型支持 `copy` 时，向量才能被复制。
 
 ### 2024.09.24
 

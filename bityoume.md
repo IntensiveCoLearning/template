@@ -80,7 +80,7 @@ timezone: Asia/Shanghai
 
 ### 2024.09.23
 
-笔记内容
+学习[Aptos Move v2](https://movetofuns.dev/aptos101/movev2/)
 
 ### 2024.09.24
 

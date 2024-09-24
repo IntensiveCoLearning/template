@@ -117,4 +117,16 @@ https://aptos.dev/en/build/smart-contracts/fungible-asset
 时间用得少，去干别的事情去，暂时只学一点点
 https://aptos.dev/en/build/smart-contracts/fungible-asset
 
+### 2024.09.22
+
+请假了
+
+### 2024.09.23
+
+了解 Coin
+https://aptos.dev/en/build/smart-contracts/aptos-coin
+
+原生币
+FA 是 token
+
 <!-- Content_END -->
