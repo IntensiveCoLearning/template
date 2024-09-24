@@ -69,4 +69,13 @@ timezone: Asia/Shanghai
 ### 2024.09.21
 1. 继续看https://learn.aptoslabs.com/zh/code-examples/vesting-token aptos的官方demo,熟悉常见的合约以及功能实现
 
+### 2024.09.22
+1. 看 https://learn.aptoslabs.com/zh/code-examples/nft-marketplace 这个nft市场的代码,看看具体是怎么实现代码的,梳理这个交互过程数据绑定过程
+2. 看上面案例中学习相关move的模块功能,包括不限于: smart_vector跟vector的差异,phantom 关键字, 还有object的模块创建对象的不同方法
+3. 感觉使用move还是需要熟悉一些常用模块的用途,不能直接就上手,LFG
+
+### 2024.09.23
+1. 继续看官方的项目demo, 通过demo扩展去学习相关知识点
+2. 今天重点在于怎么创建发布FA代币的实现
+
 <!-- Content_END -->

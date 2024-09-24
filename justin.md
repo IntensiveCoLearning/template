@@ -217,5 +217,43 @@ const client = new AptosClient(NODE_URL);
   accountResource = resources.find((r) => r.type === aptosCoinStore);
   balance = parseInt((accountResource?.data as any).coin.value);
   assert(balance === 0);
-  
+
+### 2024.09.22
+研究aptos前端动态发token
+
+### 2024.09.23
+public entry fun deploy_derived(
+    deployer: &signer,
+    metadata_serialized: vector<u8>,
+    code: vector<vector<u8>>,
+    seed: vector<u8>
+) acquires DeployingSignerCapability {
+    let deployer_address = signer::address_of(deployer);
+    let resource = account::create_resource_address(&deployer_address, seed);
+    let resource_signer: signer;
+    if (exists<DeployingSignerCapability>(resource)) {
+        let deploying_cap = borrow_global<DeployingSignerCapability>(resource);
+        resource_signer = account::create_signer_with_capability(&deploying_cap.signer_cap);
+    } else {
+        let signer_cap: account::SignerCapability;
+        (resource_signer, signer_cap) = account::create_resource_account(deployer, seed);
+        move_to(&resource_signer, DeployingSignerCapability { signer_cap, deployer: deployer_address });
+    };
+    code::publish_package_txn(&resource_signer, metadata_serialized, code);
+}
+
+### 2024.09.24
+public fun create_primary_store_enabled_fungible_asset(
+    constructor_ref: &ConstructorRef,
+    // This ensures total supply does not surpass this limit - however, 
+    // Setting this will prevent any parallel execution of mint and burn.
+    maximum_supply: Option<u128>,
+    // The fields below here are purely metadata and have no impact on-chain.
+    name: String,
+    symbol: String,
+    decimals: u8,
+    icon_uri: String,
+    project_uri: String,
+)
+
 <!-- Content_END -->

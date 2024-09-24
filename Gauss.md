@@ -658,11 +658,70 @@ Aptos的数字资产（DA）标准是一个现代化的非同质化代币（NFT�
 
 ### 2024.09.22
 
+Aptos 提供了一个 React Provider 和 Context，用于将 Aptos 钱包连接到 DApp。这个 Provider 允许开发者指定要支持的钱包，能够查询账户信息以及签署交易和消息，提供了一个标准接口来支持所有 Aptos 钱包，并且通过更新 Wallet Adapter 的依赖版本，能够轻松支持新钱包。
 
+主要步骤包括：
+
+1. 安装 @aptos-labs/wallet-adapter-react。
+2. 如果要支持“Legacy Standard Compatible”钱包，需安装对应插件；而符合 AIP-62 标准的钱包不需要额外安装插件。
+3. 在代码中导入 Aptos Wallet Adapter 以及任何遗留标准钱包的插件。
+4. 初始化 `AptosWalletAdapterProvider`，建议设置 `autoConnect` 为 `true`，并在 `plugins` 中添加非 AIP-62 标准的钱包。
+
+开发者还可以选择使用不同的 UI 包，如 Ant Design、MUI 或 shadcn/ui 来简化钱包选择器的创建。
+
+`useWallet` 提供了一些字段和函数，用于获取账户信息、网络状态以及执行钱包操作，包括连接、断开、签署交易、提交交易、签署消息、切换网络等。
 
 ### 2024.09.23
 
+Move语言中的 `vector<T>` 是唯一的原生集合类型，它是一个同质集合，可以通过在末端添加或移除元素来动态增长或缩减。`vector<T>` 可以使用任意类型 `T` 进行实例化，如 `vector<u64>`、`vector<address>` 等。
 
+### Vector字面量：
+
+- 空Vector: `vector[]`，表示空的 `vector<T>`。
+- 非空Vector: `vector[e1, ..., en]`，表示包含n个元素的向量。
+
+使用字面量时，类型可以通过元素推断，也可以显式指定类型，如 `vector<u8>[]`。
+
+#### 字节数组字面量：
+
+- `vector<u8>` 常用于表示字节数组，比如公钥或哈希值。
+- 支持两种特殊字面量：**字节字符串**（如 `b"Hello!"`）和 **十六进制字符串**（如 `x"48656C6C6F210A"`）。
+
+### Vector的操作：
+
+Move标准库的 `std::vector` 模块提供了一些常用操作：
+
+1. **创建和检查空向量**：
+
+   - `vector::empty<T>()`：创建空向量。
+   - `vector::is_empty<T>(self: &vector<T>)`：检查向量是否为空。
+
+3. **增删操作**：
+
+   - `vector::push_back<T>(self: &mut vector<T>, t: T)`：向末尾添加元素。
+   - `vector::pop_back<T>(self: &mut vector<T>)`：移除并返回最后一个元素。
+
+4. **访问和修改**：
+
+   - `vector::borrow<T>(self: &vector<T>, i: u64)`：返回第i个元素的不可变引用。
+   - `vector::borrow_mut<T>(self: &mut vector<T>, i: u64)`：返回第i个元素的可变引用。
+   - `vector::swap<T>(self: &mut vector<T>, i: u64, j: u64)`：交换向量中两个索引位置的元素。
+
+5. **销毁和拼接**：
+   
+   - `vector::destroy_empty<T>(self: vector<T>)`：销毁一个空向量。
+   - `vector::append<T>(self: &mut vector<T>, other: vector<T>)`：将另一个向量的元素添加到当前向量末尾。
+
+### 索引操作（Move 2.0）：
+
+支持通过方括号进行索引操作，简化了语法，例如：
+- `&v[i]` 等价于 `vector::borrow(&v, i)`。
+- `v[i] = x` 等价于 `*vector::borrow_mut(&mut v, i) = x`。
+
+### 特殊行为：
+
+- 如果向量中的元素类型不支持 `drop`，则必须显式销毁向量，不能隐式丢弃。
+- 只有当元素类型支持 `copy` 时，向量才能被复制。
 
 ### 2024.09.24
 
