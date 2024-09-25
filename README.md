@@ -52,15 +52,19 @@
 ## 会议安排
 
 - 9 月 7 号：
+    - 视频回放: https://youtu.be/wY0yFyYILXs 
     - 主题： Aptos & Move 简介与学习资料推荐
     - 主讲人： Logan - Aptos DevRel
 - 9 月 10 号：
+    - 视频回放: https://youtu.be/wY0yFyYILXs 
     - 主题：安装开发环境、创建/编译/测试/部署工程
     - 主讲人： Logan - Aptos DevRel
 - 9 月 18 号
+    - 视频回放: https://youtu.be/mWpfW47-pHk
     - 主题： 构建并部署 代币 faucet
     - 主讲人： Logan - Aptos DevRel
 - 9 月 24 号
+    - 视频回放: https://youtu.be/_hZXS3Nc1d4
     - 主题： 构建并部署 NFT LaunchPad
     - 主讲人： Logan - Aptos DevRel
 
