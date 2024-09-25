@@ -725,11 +725,57 @@ Move标准库的 `std::vector` 模块提供了一些常用操作：
 
 ### 2024.09.24
 
-
+https://github.com/WGB5445/teach-aptos-project/tree/main/aptos-object-nft
 
 ### 2024.09.25
 
+在 Aptos 的 TypeScript SDK 中，有多种方式可以创建和管理账户：
 
+### 生成账户凭证的方式：
+1. **`Account.generate()`**：最常用的方式，默认生成 ED25519 签名方案的密钥对，可以指定其他签名方案，如 Secp256k1Ecdsa 和 Ed25519。
+
+   ```typescript
+   const account = Account.generate(); // 默认使用 Legacy Ed25519
+   const account = Account.generate({ scheme: SigningSchemeInput.Secp256k1Ecdsa }); // 使用 Secp256k1
+   const account = Account.generate({ scheme: SigningSchemeInput.Ed25519, legacy: false }); // 使用 Single Sender Ed25519
+   ```
+
+3. **`Account.fromPrivateKey()`**：从私钥导出账户，支持 Legacy 和 Single Sender 两种 Ed25519 签名方案，以及 Secp256k1 签名方案。
+
+   ```typescript
+   const privateKey = new Ed25519PrivateKey(privateKeyBytes);
+   const account = Account.fromPrivateKey({ privateKey }); // 使用 Legacy Ed25519
+
+   const account = Account.fromPrivateKey({ privateKey, legacy: false }); // 使用 Single Sender Ed25519
+
+   const privateKey = new Secp256k1PrivateKey(privateKeyBytes);
+   const account = Account.fromPrivateKey({ privateKey }); // 使用 Secp256k1
+   ```
+
+4. **`Account.fromDerivationPath()`**：根据派生路径和助记词生成账户，同样支持多种签名方案。
+
+   ```typescript
+   const account = Account.fromDerivationPath({ path, mnemonic, scheme: SigningSchemeInput.Ed25519 }); // 使用 Legacy Ed25519
+
+   const account = Account.fromDerivationPath({ path, mnemonic, scheme: SigningSchemeInput.Ed25519, legacy: false }); // 使用 Single Sender Ed25519
+
+   const account = Account.fromDerivationPath({ path, mnemonic, scheme: SigningSchemeInput.Secp256k1Ecdsa }); // 使用 Secp256k1
+   ```
+
+### 账户的其他表示方式：
+可以使用私钥或派生路径等信息创建 `Account` 对象，并通过 SDK 管理这些凭证。
+
+### 账户资金：
+生成账户后，需要为其注资才能在网络上激活。在测试环境中可以通过 `faucet` 为账户注资：
+
+```typescript
+const transaction = await aptos.fundAccount({
+  accountAddress: account.accountAddress,
+  amount: 100,
+});
+```
+
+该SDK支持AIP-55标准，提供 Legacy（ED25519 和 MultiED25519）和 Unified（SingleSender 和 MultiSender）认证方式。
 
 ### 2024.09.26
 

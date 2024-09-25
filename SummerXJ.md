@@ -84,6 +84,9 @@ https://movetofuns.dev/aptos101/movev2/
 
 继续推进项目的研发工作
 
+### 2024.09.24
+准备项目中,尝试研究是否加入新特性
+
 
 
 <!-- Content_END -->

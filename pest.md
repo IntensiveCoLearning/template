@@ -108,4 +108,8 @@ timezone: Asia/Shanghai
 
 * 写Aptos 黑客松的项目，Sui Meet项目前端页面迁移；
 
+### 2024.09.24
+
+* 写Aptos keyless 登录和用户填表功能；
+
 <!-- Content_END -->
