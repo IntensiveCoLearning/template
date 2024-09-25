@@ -242,4 +242,18 @@ public entry fun deploy_derived(
     code::publish_package_txn(&resource_signer, metadata_serialized, code);
 }
 
+### 2024.09.24
+public fun create_primary_store_enabled_fungible_asset(
+    constructor_ref: &ConstructorRef,
+    // This ensures total supply does not surpass this limit - however, 
+    // Setting this will prevent any parallel execution of mint and burn.
+    maximum_supply: Option<u128>,
+    // The fields below here are purely metadata and have no impact on-chain.
+    name: String,
+    symbol: String,
+    decimals: u8,
+    icon_uri: String,
+    project_uri: String,
+)
+
 <!-- Content_END -->

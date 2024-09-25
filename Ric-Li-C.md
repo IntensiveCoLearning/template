@@ -106,4 +106,8 @@ https://explorer.aptoslabs.com/account/0x9441c7b026a4029d7971ed4d7d9ed08ceaa09a1
 
 了解 Aptos 公链的架构、共识机制，Gas 模型、帐户模型、资源模型、交易与状态模型（Continued）
 
+### 2024.09.24
+
+参加线上会议 ~ Aptos 残酷共学分享会 #4：构建部署 NFT LaunchPad
+
 <!-- Content_END -->
