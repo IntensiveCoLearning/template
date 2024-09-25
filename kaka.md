@@ -521,7 +521,26 @@ let obj_addr = create_object_address(&creator_address, seed);
 public fun object_exists<T: key>(object: address): bool
 ```
 
+### 2024.09.25
+**学习内容**：学习Table的使用<br>
+**学习记录**：<br>
+```
+// create Table
+new<K: copy + drop, V: store>(): Table<K, V>
 
+// Aborts if the key already exists
+add<K: copy + drop, V>(table: &mut Table<K, V>, key: K, val: V)
+// Aborts if the key is not found.
+remove<K: copy + drop, V>(table: &mut Table<K, V>, key: K): V
+// Inserts or updates a key-value pair.
+upsert<K: copy + drop, V: drop>(table: &mut Table<K, V>, key: K, value: V)
 
+borrow<K: copy + drop, V>(table: &Table<K, V>, key: K): &V
+borrow_with_default<K: copy + drop, V>(table: &Table<K, V>, key: K, default: &V): &V
+borrow_mut<K: copy + drop, V>(table: &mut Table<K, V>, key: K): &mut V
+borrow_mut_with_default<K: copy + drop, V: drop>(table: &mut Table<K, V>, key: K, default: V): &mut V
+
+contains<K: copy + drop, V>(table: &Table<K, V>, key: K): bool
+```
 
 <!-- Content_END -->
