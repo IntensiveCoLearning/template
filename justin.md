@@ -279,4 +279,27 @@ public entry fun main() {
     smart_table::destroy_empty(table);
 }
 
+### 2024.09.26
+use std::vector;
+
+public entry fun main() {
+    let v = vector::empty<u64>();
+    vector::push_back(&mut v, 10);
+    vector::push_back(&mut v, 20);
+
+    let length = vector::length(&v);
+    assert!(length == 2, 0);
+
+    let first_elem = vector::borrow(&v, 0);
+    assert!(*first_elem == 10, 0);
+
+    let second_elem = vector::borrow(&v, 1);
+    assert!(*second_elem == 20, 0);
+
+    let last_elem = vector::pop_back(&mut v);
+    assert!(last_elem == 20, 0);
+
+    vector::destroy_empty(v);
+}
+
 <!-- Content_END -->
