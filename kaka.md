@@ -543,4 +543,32 @@ borrow_mut_with_default<K: copy + drop, V: drop>(table: &mut Table<K, V>, key: K
 contains<K: copy + drop, V>(table: &Table<K, V>, key: K): bool
 ```
 
+### 2024.09.26
+**学习内容**：学习Table的使用<br>
+**学习记录**：<br>
+`aptos_std::simple_map`：（本质上是对vector的封装）
+
+```
+// 关键结构体
+struct SimpleMap<Key, Value> has copy, drop, store
+
+length()  // 获取长度
+new()  //创建空的SimpleMap
+new_from()  //使用vector类型的keys和values创建Simple
+borrow()
+borrow_mut()
+contains_key()  // 是否含有某个key
+destory_empty()
+add()     //添加key/value，key不能已经存在
+add_all()  // 联想new_from()
+upsert()   // 插入或更新
+keys()    // 返回vector<key>
+values()   // 返回vector<value>
+to_vec_pair() // 返回(vector<Key>, vector<Value>)
+destory()   // ???
+remove()   // key必须存在
+find()     
+```
+
+
 <!-- Content_END -->
