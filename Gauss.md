@@ -315,6 +315,115 @@ Aptos 使用加密证明来验证数据的真实性。
 
 每个交易的执行遵循一个确定性函数（Apply()），确保状态转换的一致性。
 
+### 2024.09.11
+
+### 创建和配置对象
+
+创建对象涉及两个步骤：
+
+1. **创建对象核心资源组**（有一个地址可供后续引用）。
+2. **配置对象的行为**，通过称为 Refs 的权限。
+
+配置对象生成 Refs 必须在创建时完成，之后无法更改。
+
+### 创建对象的三种类型
+
+1. **普通对象**：可删除，具有随机地址。使用 `0x1::object::create_object(owner_address: address)` 创建。
+   
+   ```move
+   entry fun create_my_object(caller: &signer) {
+       let caller_address = signer::address_of(caller);
+       let constructor_ref = object::create_object(caller_address);
+   }
+   ```
+
+2. **命名对象**：不可删除，具有确定性地址。使用 `0x1::object::create_named_object(creator: &signer, seed: vector<u8>)` 创建。
+
+   ```move
+   const NAME: vector<u8> = b"MyAwesomeObject";
+   entry fun create_my_object(caller: &signer) {
+       let caller_address = signer::address_of(caller);
+       let constructor_ref = object::create_named_object(caller, NAME);
+   }
+   ```
+
+3. **粘性对象**：不可删除，具有随机地址。使用 `0x1::object::create_sticky_object(owner_address: address)` 创建。
+
+   ```move
+   entry fun create_my_object(caller: &signer) {
+       let caller_address = signer::address_of(caller);
+       let constructor_ref = object::create_sticky_object(caller_address);
+   }
+   ```
+
+### 定制对象功能
+
+创建对象后，可以使用 `ConstructorRef` 生成额外的 Refs，以启用/禁用对象功能，如转移资源、转移对象或删除对象。
+
+#### 添加资源
+
+使用 `ConstructorRef` 生成一个签名者，允许将资源转移到对象中。
+
+```move
+entry fun create_my_object(caller: &signer) {
+    let object_signer = object::generate_signer(&constructor_ref);
+    move_to(&object_signer, MyStruct { num: 0 });
+}
+```
+
+#### 添加可扩展性（ExtendRef）
+
+生成 `ExtendRef` 以允许对象在未来进行编辑，控制权限可以通过智能合约逻辑实现。
+
+```move
+entry fun add_message(caller: &signer, object: Object<MyStruct>, message: String) acquires ObjectController {
+    let extend_ref = borrow_global<ObjectController>(object_address).extend_ref;
+    let object_signer = object::generate_signer_for_extending(&extend_ref);
+    move_to(object_signer, Message { message });
+}
+```
+
+#### 禁用/切换转移（TransferRef）
+
+默认情况下，所有对象都是可转移的。通过 `TransferRef` 可以管理转移权限。
+
+```move
+entry fun toggle_transfer(caller: &signer, object: Object<ObjectController>) acquires ObjectController {
+    let transfer_ref = borrow_global<ObjectController>(object_address).transfer_ref;
+    if (object::ungated_transfer_allowed(object)) {
+        object::disable_ungated_transfer(&transfer_ref);
+    } else {
+        object::enable_ungated_transfer(&transfer_ref);
+    }
+}
+```
+
+#### 一次性转移（LinearTransferRef）
+
+生成一次性使用的 `LinearTransferRef` 以实现“灵魂绑定”对象的功能。
+
+```move
+entry fun transfer(caller: &signer, object: Object<ObjectController>, new_owner: address) acquires ObjectController {
+    let linear_transfer_ref = option::extract(&mut object_controller.linear_transfer_ref);
+    object::transfer_with_ref(linear_transfer_ref, new_owner);
+}
+```
+
+#### 允许删除对象（DeleteRef）
+
+对可删除对象生成 `DeleteRef` 以便后续使用，帮助清理存储。
+
+```move
+entry fun delete(caller: &signer, object: Object<ObjectController>) {
+    let delete_ref = move_from<ObjectController>(object_address).delete_ref;
+    object::delete(delete_ref);
+}
+```
+
+#### 使对象不可变
+
+通过将合约关联的对象设为不可变，移除扩展或变更对象的能力。
+
 ### 2024.09.13
 
 Move语言有两种类型的程序：模块（Modules）和脚本（Scripts）。模块是定义结构类型和操作这些类型的函数的库，而脚本是可执行的入口点，类似于传统语言中的main函数。
@@ -725,15 +834,73 @@ Move标准库的 `std::vector` 模块提供了一些常用操作：
 
 ### 2024.09.24
 
-
+https://github.com/WGB5445/teach-aptos-project/tree/main/aptos-object-nft
 
 ### 2024.09.25
 
+在 Aptos 的 TypeScript SDK 中，有多种方式可以创建和管理账户：
 
+### 生成账户凭证的方式：
+1. **`Account.generate()`**：最常用的方式，默认生成 ED25519 签名方案的密钥对，可以指定其他签名方案，如 Secp256k1Ecdsa 和 Ed25519。
+
+   ```typescript
+   const account = Account.generate(); // 默认使用 Legacy Ed25519
+   const account = Account.generate({ scheme: SigningSchemeInput.Secp256k1Ecdsa }); // 使用 Secp256k1
+   const account = Account.generate({ scheme: SigningSchemeInput.Ed25519, legacy: false }); // 使用 Single Sender Ed25519
+   ```
+
+3. **`Account.fromPrivateKey()`**：从私钥导出账户，支持 Legacy 和 Single Sender 两种 Ed25519 签名方案，以及 Secp256k1 签名方案。
+
+   ```typescript
+   const privateKey = new Ed25519PrivateKey(privateKeyBytes);
+   const account = Account.fromPrivateKey({ privateKey }); // 使用 Legacy Ed25519
+
+   const account = Account.fromPrivateKey({ privateKey, legacy: false }); // 使用 Single Sender Ed25519
+
+   const privateKey = new Secp256k1PrivateKey(privateKeyBytes);
+   const account = Account.fromPrivateKey({ privateKey }); // 使用 Secp256k1
+   ```
+
+4. **`Account.fromDerivationPath()`**：根据派生路径和助记词生成账户，同样支持多种签名方案。
+
+   ```typescript
+   const account = Account.fromDerivationPath({ path, mnemonic, scheme: SigningSchemeInput.Ed25519 }); // 使用 Legacy Ed25519
+
+   const account = Account.fromDerivationPath({ path, mnemonic, scheme: SigningSchemeInput.Ed25519, legacy: false }); // 使用 Single Sender Ed25519
+
+   const account = Account.fromDerivationPath({ path, mnemonic, scheme: SigningSchemeInput.Secp256k1Ecdsa }); // 使用 Secp256k1
+   ```
+
+### 账户的其他表示方式：
+可以使用私钥或派生路径等信息创建 `Account` 对象，并通过 SDK 管理这些凭证。
+
+### 账户资金：
+生成账户后，需要为其注资才能在网络上激活。在测试环境中可以通过 `faucet` 为账户注资：
+
+```typescript
+const transaction = await aptos.fundAccount({
+  accountAddress: account.accountAddress,
+  amount: 100,
+});
+```
+
+该SDK支持AIP-55标准，提供 Legacy（ED25519 和 MultiED25519）和 Unified（SingleSender 和 MultiSender）认证方式。
 
 ### 2024.09.26
 
+1. **作为函数参数**：对象可以作为entry函数的参数，类型为`Object<T>`，在运行时会验证对象的存在和类型。
 
+2. **对象类型**：可以通过`address_to_object`和`convert<T>`函数进行对象类型转换。
+
+3. **结构体中的对象**：可以将对象嵌入结构体中，表示复杂类型。
+
+4. **所有权验证**：在修改对象之前，需要确认调用者是否为对象的所有者，可以通过多种方法验证所有权。
+
+5. **转移所有权**：对象默认可转移，但可以通过生成的`TransferRef`或`LinearTransferRef`来管理转移权限。
+
+6. **事件**：对象转移时会触发`TransferEvent`，可以扩展其他事件。
+
+7. **修改对象**：对象的修改通常需要在创建时生成的Refs，无法在创建后更改对象的基本属性。
 
 ### 2024.09.27
 

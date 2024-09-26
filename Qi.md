@@ -129,4 +129,15 @@ https://aptos.dev/en/build/smart-contracts/aptos-coin
 原生币
 FA 是 token
 
+### 2024.09.24
+
+听了会议 了解了 DA
+https://aptos.dev/en/build/smart-contracts/digital-asset
+
+### 2024.09.25
+
+继续了解 DA
+
+https://aptos.dev/en/build/smart-contracts/digital-asset
+
 <!-- Content_END -->

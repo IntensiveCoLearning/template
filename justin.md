@@ -256,4 +256,50 @@ public fun create_primary_store_enabled_fungible_asset(
     project_uri: String,
 )
 
+### 2024.09.25
+ use aptos_std::smart_table;
+ 
+public entry fun main() {
+    let table = smart_table::new<u64, u64>();
+    smart_table::add(&mut table, 1, 100);
+    smart_table::add(&mut table, 2, 200);
+
+    let length = smart_table::length(&table);
+    assert!(length == 2, 0);
+
+    let value1 = smart_table::borrow(&table, 1);
+    assert!(*value1 == 100, 0);
+
+    let value2 = smart_table::borrow(&table, 2);
+    assert!(*value2 == 200, 0);
+
+    let removed_value = smart_table::remove(&mut table, 1);
+    assert!(removed_value == 100, 0);
+
+    smart_table::destroy_empty(table);
+}
+
+### 2024.09.26
+use std::vector;
+
+public entry fun main() {
+    let v = vector::empty<u64>();
+    vector::push_back(&mut v, 10);
+    vector::push_back(&mut v, 20);
+
+    let length = vector::length(&v);
+    assert!(length == 2, 0);
+
+    let first_elem = vector::borrow(&v, 0);
+    assert!(*first_elem == 10, 0);
+
+    let second_elem = vector::borrow(&v, 1);
+    assert!(*second_elem == 20, 0);
+
+    let last_elem = vector::pop_back(&mut v);
+    assert!(last_elem == 20, 0);
+
+    vector::destroy_empty(v);
+}
+
 <!-- Content_END -->

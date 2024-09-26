@@ -1379,7 +1379,24 @@ module Example {
 
 ### 2024.09.25
 
-笔记内容
+一个人可以拥有多个fungible store 每个store都是一个object。 primary的fungible store是每个账户deterministic的
+类似于默认的store
+coin的coinstore一个人只能有一个 就是默认的
+发布到object的合约，可以在合约内部获取到该object
+
+module SomeAddress::SomeModule {
+ ....
+}
+
+ @SomeAddress 就是当前合约地址
+
+如果合约是通过 Object 发布的，那么 @SomeAddress 就是 Object 地址/ 合约地址
+Object<T> 可以从 address 生成出来
+生成时，VM 会检查对应的状态
+比如 object::address_to_object<ObjectCore>(object_address) 的时候
+
+vm 会检测 这个 address 是不是一个 object address
+如果是一个 object，再检测账户下是否有 <ObjectCore> 这个结构
 
 ### 2024.09.26
 

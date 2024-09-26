@@ -110,4 +110,12 @@ https://explorer.aptoslabs.com/account/0x9441c7b026a4029d7971ed4d7d9ed08ceaa09a1
 
 参加线上会议 ~ Aptos 残酷共学分享会 #4：构建部署 NFT LaunchPad
 
+### 2024.09.25
+
+准备 NFT 项目 （每次只能 mint 一张；只有另外一个 soul bond NFT 的拥有者才能 mint）
+
+### 2024.09.26
+
+准备 NFT 项目 （Continued）
+
 <!-- Content_END -->

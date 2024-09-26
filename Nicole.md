@@ -528,9 +528,73 @@ npx create-aptos-dapp@latest #Install create-aptos-dapp
 4. Tools create-aptos-dapp utilizes
 
 ### 2024.09.24
+1. 学习如何铸造NFT
+   - 创建collection
+     - 固定最大供应量
+  ```
+       use aptos_token_objects::collection;
+use std::option::{Self, Option};
+ 
+public entry fun create_collection(creator: &signer) {
+    let max_supply = 1000;
+    let royalty = option::none();
+    
+    // Maximum supply cannot be changed after collection creation
+    collection::create_fixed_collection(
+        creator,
+        "My Collection Description",
+        max_supply,
+        "My Collection",
+        royalty,
+        "https://mycollection.com",
+    );
+}
+  ```
+ - 无限量供应
+collection也可以定制：由于每个Collection都是一个Move Object ，因此可以通过生成称为Ref权限来自定义它。每个Ref都允许稍后修改对象的某个方面。
+「Refs must be generated at creation time of an Object. The ConstructorRef used to generate other Refs expires as soon as the transaction to create the Object is finished.」
+合约地址参考：https://explorer.aptoslabs.com/object/0xcd006487de8297c68a0879b8d69bfb37ea1b6c8a86f8dc872b9890dff7283c6a/modules/run/nft/mint_token?network=testnet
 
+2. 创建token
+   1）named token
+   它们使用Token的名称来生成命名对象。如果您知道令牌和Collection名称，则可以轻松找到令牌的地址，但命名对象不可删除。尝试删除命名令牌只会删除数据，而不会删除对象本身。
+```
+use aptos_token_objects::token;
+use std::option::{Self, Option};
+ 
+public entry fun mint_token(creator: &signer) {
+    let royalty = option::none();
+    token::create_named_token(
+        creator,
+        "Collection Name",
+        "Description",
+        "Token Name",
+        royalty,
+        "https://mycollection.com/my-named-token.jpeg",
+    );
+}
+```
+   2）unnamed token
+   它们创建未命名的对象（可删除），但仍然具有Token名称。由于对象地址不确定，因此必须使用索引器来查找它们的地址。
+```
+use aptos_token_objects::token;
+use std::option::{Self, Option};
+ 
+public entry fun mint_token(creator: &signer) {
+    let royalty = option::none();
+    token::create(
+        creator,
+        "Collection Name",
+        "Description",
+        "Token Name",
+        royalty,
+        "https://mycollection.com/my-named-token.jpeg",
+    );
+}
+```
 ### 2024.09.25
-
+不创建collection是不能mint NFT的，只有执行collection之后才可以。
+复习NFT Lauch
 ### 2024.09.26
 
 ### 2024.09.27

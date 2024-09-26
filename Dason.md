@@ -78,4 +78,8 @@ timezone: Asia/Shanghai
 1. 继续看官方的项目demo, 通过demo扩展去学习相关知识点
 2. 今天重点在于怎么创建发布FA代币的实现
 
+### 2024.09.24
+1. 今天看了 code-examples 中的Aptos Friend 代码实现,其他的几个案例也大概看了一下
+2. 参加第四期的课程,学习da的代币的发布+move2的新特性
+
 <!-- Content_END -->
