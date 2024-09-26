@@ -87,6 +87,13 @@ https://movetofuns.dev/aptos101/movev2/
 ### 2024.09.24
 准备项目中,尝试研究是否加入新特性
 
+### 2024.09.25
+学习第四堂课视频和重温第三堂视频
+
+https://youtu.be/vnl8zXiN4SQ
+
+https://youtu.be/_hZXS3Nc1d4
+
 
 
 <!-- Content_END -->

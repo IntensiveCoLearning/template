@@ -112,4 +112,8 @@ timezone: Asia/Shanghai
 
 * 写Aptos keyless 登录和用户填表功能；
 
+### 2024.09.25
+
+* 写项目填表，上传ipfs;
+
 <!-- Content_END -->

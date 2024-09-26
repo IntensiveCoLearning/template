@@ -134,4 +134,10 @@ FA 是 token
 听了会议 了解了 DA
 https://aptos.dev/en/build/smart-contracts/digital-asset
 
+### 2024.09.25
+
+继续了解 DA
+
+https://aptos.dev/en/build/smart-contracts/digital-asset
+
 <!-- Content_END -->
