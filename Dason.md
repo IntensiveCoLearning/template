@@ -82,4 +82,10 @@ timezone: Asia/Shanghai
 1. 今天看了 code-examples 中的Aptos Friend 代码实现,其他的几个案例也大概看了一下
 2. 参加第四期的课程,学习da的代币的发布+move2的新特性
 
+### 2024.09.26
+1. 梳理项目流程以及实现做一个英文学习项目: 每天记录10个陌生的单词,300个陌生单词一个周期,每天完成一次的学习获取一个代币,一轮学完可以mint一个NFT,盈利点在于mint这个NFT的时候需要付少量的费用
+<img width="2061" alt="image" src="https://github.com/user-attachments/assets/b0c4a2d0-28bb-4433-8101-578cec08dcf8">
+2. 基本完成合约的code
+
+
 <!-- Content_END -->
