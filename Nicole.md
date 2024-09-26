@@ -595,8 +595,10 @@ public entry fun mint_token(creator: &signer) {
 ### 2024.09.25
 不创建collection是不能mint NFT的，只有执行collection之后才可以。
 复习NFT Lauch
+
 ### 2024.09.26
+复习油管的视频：构建并部署代币水龙头https://www.youtube.com/watch?v=vnl8zXiN4SQ
 
 ### 2024.09.27
-
+最后一天了！
 <!-- Content_END -->
