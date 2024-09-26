@@ -231,15 +231,158 @@ acquires MessageHolder表示这个函数会访问MessageHolder资源。
 函数首先检查指定地址是否存在MessageHolder资源，如果不存在则抛出错误。
 如果存在，函数返回该地址下MessageHolder资源中的message字段。
 ### 2024.09.22
- -  [ ] 
+在Aptos Move中编写单元测试的主要步骤如下:
+
+1. 在Move文件中使用 `#[test]` 注解标记测试函数:
+
+```move
+#[test]
+fun test_function() {
+    // 测试代码
+}
+```
+
+2. 测试函数通常是私有的(`fun`)而不是公开的(`public fun`)。
+
+3. 使用 `assert!` 宏来验证测试结果:
+
+```move
+#[test]
+fun test_addition() {
+    let result = 2 + 2;
+    assert!(result == 4, 0);
+}
+```
+
+4. 可以使用 `#[expected_failure]` 注解来测试预期会失败的情况:
+
+```move
+#[test]
+#[expected_failure]
+fun test_division_by_zero() {
+    let _ = 1 / 0;
+}
+```
+
+5. 使用 `#[test_only]` 注解标记只在测试中使用的辅助函数或结构:
+
+```move
+#[test_only]
+fun setup_test_coin(account: &signer) {
+    // 初始化测试用的代币
+}
+```
+
+
 ### 2024.09.23
- -  [ ] 
+- 继续学习aptos move的单元测试
+6. 可以使用 `aptos move test` 命令运行测试:
+
+```
+$ aptos move test
+```
+
+7. 测试可以访问模块中的私有函数,这有助于更全面的测试覆盖。
+
+8. 可以使用 `--filter` 选项只运行特定的测试:
+
+```
+$ aptos move test --filter test_function_name
+```
+
+9. 使用 `assert!` 时提供有意义的错误消息,以便更容易调试失败的测试。
+
+10. 考虑边界情况和异常情况,不仅测试正常路径。
+
 ### 2024.09.24
  -  [ ] 
 ### 2024.09.25
- -  [ ] 
+ -  [ ] 尝试写一个发红包合约
+- 主要功能如下
+1. create_red_packet: 创建一个新的红包。创建者指定总金额、红包数量和有效期。
+2. claim_red_packet: 允许用户领取红包。每次领取的金额是剩余金额除以剩余数量。
+3. refund_red_packet: 允许创建者在红包过期后收回未领取的金额。
+- 主要特点:
+1. 使用 AptosCoin 作为红包的货币。
+2. 红包信息存储在 RedPacket 结构中。
+3. 包含基本的错误检查,如余额不足、红包过期、无剩余红包等。
+4. 使用 timestamp 模块来处理时间相关的逻辑。
 ### 2024.09.26
- -  [ ] 
+```
+module redpacket::redpacket {
+    use std::signer;
+    use aptos_framework::coin;
+    use aptos_framework::aptos_coin::AptosCoin;
+    use aptos_framework::timestamp;
+    use aptos_framework::account;
+
+    struct RedPacket has key {
+        creator: address,
+        total_amount: u64,
+        remaining_amount: u64,
+        total_count: u64,
+        remaining_count: u64,
+        expiration_time: u64,
+    }
+
+    const E_NOT_CREATOR: u64 = 1;
+    const E_INSUFFICIENT_BALANCE: u64 = 2;
+    const E_EXPIRED: u64 = 3;
+    const E_NO_REMAINING: u64 = 4;
+
+    public entry fun create_red_packet(
+        creator: &signer,
+        total_amount: u64,
+        total_count: u64,
+        duration: u64
+    ) {
+        let creator_addr = signer::address_of(creator);
+        assert!(coin::balance<AptosCoin>(creator_addr) >= total_amount, E_INSUFFICIENT_BALANCE);
+
+        coin::transfer<AptosCoin>(creator, @redpacket, total_amount);
+
+        let expiration_time = timestamp::now_seconds() + duration;
+        
+        move_to(creator, RedPacket {
+            creator: creator_addr,
+            total_amount,
+            remaining_amount: total_amount,
+            total_count,
+            remaining_count: total_count,
+            expiration_time,
+        });
+    }
+
+    public entry fun claim_red_packet(claimer: &signer, creator: address) acquires RedPacket {
+        let red_packet = borrow_global_mut<RedPacket>(creator);
+        
+        assert!(timestamp::now_seconds() <= red_packet.expiration_time, E_EXPIRED);
+        assert!(red_packet.remaining_count > 0, E_NO_REMAINING);
+
+        let claim_amount = red_packet.remaining_amount / red_packet.remaining_count;
+        
+        red_packet.remaining_amount = red_packet.remaining_amount - claim_amount;
+        red_packet.remaining_count = red_packet.remaining_count - 1;
+
+        let claimer_addr = signer::address_of(claimer);
+        coin::transfer<AptosCoin>(@redpacket, claimer_addr, claim_amount);
+    }
+
+    public entry fun refund_red_packet(creator: &signer) acquires RedPacket {
+        let creator_addr = signer::address_of(creator);
+        let red_packet = borrow_global_mut<RedPacket>(creator_addr);
+        
+        assert!(creator_addr == red_packet.creator, E_NOT_CREATOR);
+        assert!(timestamp::now_seconds() > red_packet.expiration_time, E_EXPIRED);
+
+        if (red_packet.remaining_amount > 0) {
+            coin::transfer<AptosCoin>(@redpacket, creator_addr, red_packet.remaining_amount);
+            red_packet.remaining_amount = 0;
+            red_packet.remaining_count = 0;
+        }
+    }
+}
+```
 ### 2024.09.27
  -  [ ] 
 
