@@ -544,7 +544,7 @@ contains<K: copy + drop, V>(table: &Table<K, V>, key: K): bool
 ```
 
 ### 2024.09.26
-**学习内容**：学习Table的使用<br>
+**学习内容**：学习simple_map模块<br>
 **学习记录**：<br>
 `aptos_std::simple_map`：（本质上是对vector的封装）
 
