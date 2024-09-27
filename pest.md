@@ -120,4 +120,8 @@ timezone: Asia/Shanghai
 
 * 写项目交互创建profile，验证是否拥有profile，研究Nodit Indexer使用；
 
+### 2024.09.27
+
+* 写项目交互match合约，国际化，研究Aptos Telegram Mini App Example;
+
 <!-- Content_END -->
