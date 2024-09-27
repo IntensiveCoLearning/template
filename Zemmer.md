@@ -793,7 +793,7 @@ script {
 ### 2024.09.26
 继续move和aptos学习。
 ### 2024.09.27
-
+function和struct语法
 
 
 <!-- Content_END -->
