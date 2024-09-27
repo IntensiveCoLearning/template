@@ -11,6 +11,11 @@ timezone: Asia/Shanghai
 2. 你认为你会完成本次残酷学习吗？<br>
    包完成的，不完成倒立洗头！！！
 
+<br>
+
+最终项目：https://github.com/narnona/FlashLoanOnAptos
+<br>
+
 ## Notes
 
 <!-- Content_START -->
@@ -569,6 +574,9 @@ destory()   // ???
 remove()   // key必须存在
 find()     
 ```
-
+### 2024.09.27
+**学习内容**：完善项目并提交<br>
+**学习记录**：<br>
+项目地址：https://github.com/narnona/FlashLoanOnAptos
 
 <!-- Content_END -->
