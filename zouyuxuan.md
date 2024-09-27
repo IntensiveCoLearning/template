@@ -211,4 +211,26 @@ init_module函数必须是私有的，不能返回任何参数
 学习水龙头程序，根据自己的项目编写新的水龙头程序
 ### 2024.09.26
 编译部署程序，优化代码
+### 2024.09.27
+``` 
+// 关键结构体
+struct SimpleMap<Key, Value> has copy, drop, store
+
+length()  // 获取长度
+new()  //创建空的SimpleMap
+new_from()  //使用vector类型的keys和values创建Simple
+borrow()
+borrow_mut()
+contains_key()  // 是否含有某个key
+destory_empty()
+add()     //添加key/value，key不能已经存在
+add_all()  // 联想new_from()
+upsert()   // 插入或更新
+keys()    // 返回vector<key>
+values()   // 返回vector<value>
+to_vec_pair() // 返回(vector<Key>, vector<Value>)
+destory()   // ???
+remove()   // key必须存在
+find()     
+```
 <!-- Content_END -->
