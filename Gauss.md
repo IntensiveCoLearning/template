@@ -904,6 +904,19 @@ const transaction = await aptos.fundAccount({
 
 ### 2024.09.27
 
-https://explorer.aptoslabs.com/account/0x5ec15963c82ca105d48a7d3226d5a1b0d3658176b7cf8caae279b1e873efefe2/modules/code/router/add_liquidity_entry?network=testnet
+### 项目概述：Liquidity_NFT
+
+**项目目标**：将NFT与流动性交换（swap）结合，为用户在提供流动性时生成一个动态NFT，旨在提升用户的投资体验。
+
+**NFT信息内容**：
+- **持有时间**：记录用户提供流动性多久。
+- **可提取费用**：展示用户能从流动性池中提取的费用数量。
+- **LP Token持有比例**：反映用户在流动性池中的份额占比。
+
+**动态更新机制**：
+当持有时间、可提取费用或LP Token持有比例满足特定条件时，NFT会自动更新其内容和外观，提供实时反馈。
+
+**用户体验**：
+该项目旨在提供直观且互动的投资体验，降低DeFi的学习门槛，通过创新设计激励用户长期参与，同时为NFT赋予更广泛的实用性和交易价值。这种结合不仅增强了用户的参与感，还能提升市场流动性和NFT的市场价值。
 
 <!-- Content_END -->
