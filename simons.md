@@ -145,7 +145,10 @@ score 中的计分逻辑测试仍然存在 bug
 
 修复余额显示以及菜单项的路由
 
-### 2024.09.26
+### 2024.09.27
 
 完善 sortcat 项目，以及更新 Movelgo 
+- https://github.com/caoyang2002/sort-cat
+- https://sortcat.vercel.app/
+
 <!-- Content_END -->
