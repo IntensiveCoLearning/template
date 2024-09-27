@@ -182,6 +182,36 @@ init_module函数必须是私有的，不能返回任何参数
     }
 ```
 ### 2024.09.21
+1. 对象是单个地址的资源容器，用于储存资源
+2. 对象提供了一种集中式资源控制与所有权管理的方法
+
+创建并转移对象实例
+我们可以通过 aptos_framework 库下的 object 来实现对象的功能。
+```rust
+module my_addr::object_playground {
+  use std::signer;
+  use aptos_framework::object::{self, ObjectCore};
+
+  entry fun create_and_transfer(caller: &signer, destination: address) {
+    // Create object
+    let caller_address = signer::address_of(caller);
+    let constructor_ref = object::create_object(caller_address);
+
+    // Set up the object
+
+    // Transfer to destination
+    let object = object::object_from_constructor_ref<ObjectCore>(&constructor_ref);
+    object::transfer(caller, object, destination);
+  }
+}
+```
+
+两类对象
+可删除普通对象
+不可删除对象
+
+- 命名对象，通过固定的 signer 和特定的 seed 生成唯一地址的对象，1个地址只能生成1个
+- 粘性对象，通过 signer 生成的对象，1个地址可以生成多个
 ### 2024.09.22
 函数
  - Public functions
