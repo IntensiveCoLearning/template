@@ -87,5 +87,7 @@ timezone: Asia/Shanghai
 <img width="2061" alt="image" src="https://github.com/user-attachments/assets/b0c4a2d0-28bb-4433-8101-578cec08dcf8">
 2. 基本完成合约的code
 
+### 2024.09.27
+1. 根据上面流程实现了的逻辑代码,但是由于时间问题没有进行调试https://explorer.aptoslabs.com/account/0xaf83a4307fada3042e7c6e9b958aec8f4eaacbc0274737afe1b0502ba2a574a4/modules/code/learncore/create_fa?network=testnet
 
 <!-- Content_END -->
