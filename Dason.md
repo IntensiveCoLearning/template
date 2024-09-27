@@ -89,5 +89,6 @@ timezone: Asia/Shanghai
 
 ### 2024.09.27
 1. 根据上面流程实现了的逻辑代码,但是由于时间问题没有进行调试https://explorer.aptoslabs.com/account/0xaf83a4307fada3042e7c6e9b958aec8f4eaacbc0274737afe1b0502ba2a574a4/modules/code/learncore/create_fa?network=testnet
+2. 流程图中nft的mint时间问题没有实现以及没有实现前端,只是写了合约
 
 <!-- Content_END -->
