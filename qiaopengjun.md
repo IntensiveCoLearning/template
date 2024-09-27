@@ -1500,7 +1500,20 @@ module contract::faucet {
 
 ### 2024.09.27
 
-笔记内容
+<https://learnblockchain.cn/article/9434>
+创建新的可替代资产（FA）
+从高层次来看，这是通过以下方式实现的：
+
+创建一个不可删除的对象来拥有新创建的可替代资产Metadata。
+生成Refs 以启用任何所需的权限。
+铸造可替代资产并将其转移到您想要的任何账户。
+数字资产 (DA) 标准是 Aptos 的现代非同质化代币 (NFT) 标准。NFT 代表链上的独特资产，并存储在集合中
+创建一个Collection
+collection::create_fixed_collection
+collection::create_unlimited_collection
+创建代币
+create_named_token
+create
 
 ### 2024.09.28
 
