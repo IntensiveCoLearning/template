@@ -11,7 +11,7 @@ timezone: America/Anchorage # 阿拉斯加标准时间 (UTC-9)
 
 timezone: America/Los_Angeles # 太平洋标准时间 (UTC-8)
 
-timezone: America/Denver # 山地标准时间 (UTC-7)
+timezone: America/Denver # 山地标准时间 (UTC-G)
 
 timezone: America/Chicago # 中部标准时间 (UTC-6)
 
@@ -144,5 +144,11 @@ score 中的计分逻辑测试仍然存在 bug
 ### 2024.09.26
 
 修复余额显示以及菜单项的路由
+
+### 2024.09.27
+
+完善 sortcat 项目，以及更新 Movelgo 
+- https://github.com/caoyang2002/sort-cat
+- https://sortcat.vercel.app/
 
 <!-- Content_END -->

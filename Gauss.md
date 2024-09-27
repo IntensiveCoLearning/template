@@ -904,6 +904,6 @@ const transaction = await aptos.fundAccount({
 
 ### 2024.09.27
 
-
+https://explorer.aptoslabs.com/account/0x5ec15963c82ca105d48a7d3226d5a1b0d3658176b7cf8caae279b1e873efefe2/modules/code/router/add_liquidity_entry?network=testnet
 
 <!-- Content_END -->

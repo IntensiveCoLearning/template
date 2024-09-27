@@ -140,4 +140,9 @@ https://aptos.dev/en/build/smart-contracts/digital-asset
 
 https://aptos.dev/en/build/smart-contracts/digital-asset
 
+### 2024.09.26
+
+尝试
+https://aptos.dev/en/build/guides/your-first-nft
+
 <!-- Content_END -->

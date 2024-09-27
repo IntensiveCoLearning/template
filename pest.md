@@ -116,4 +116,8 @@ timezone: Asia/Shanghai
 
 * 写项目填表，上传ipfs;
 
+### 2024.09.26
+
+* 写项目交互创建profile，验证是否拥有profile，研究Nodit Indexer使用；
+
 <!-- Content_END -->

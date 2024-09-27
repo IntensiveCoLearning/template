@@ -88,11 +88,11 @@ timezone: Asia/Shanghai
 
 ### 2024.09.25
 
-笔记内容
+无
 
 ### 2024.09.26
 
-笔记内容
+[示例学习：keyless.ts](https://bityoume.github.io/intensive-colearning-aptos/eg_keyless_ts.html)
 
 ### 2024.09.27
 
