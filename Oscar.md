@@ -307,9 +307,17 @@ timezone: Asia/Shanghai
 ### 2024.09.26
 
 - 学习主题：公开课回放
-  - 构建并部署代币 faucet https://youtu.be/mWpfW47-pHk 、构建部署 NFT LaunchPad https://youtu.be/_hZXS3Nc1d4
-  - Aptos 是相对比较系统的了解了第二个公链，Aptos 重心聚焦去中心化和安全，会持续关注 Aptos 最新进展。
+  - 构建并部署代币 faucet https://youtu.be/mWpfW47-pHk 
+  - 构建部署 NFT LaunchPad https://youtu.be/_hZXS3Nc1d4
 
 ### 2024.09.27
+
+- 学习主题：Aptos 公链知识点回顾
+
+  - Why Aptos 公链背景：区块链和云基础设施一样无处不在。聚集点：优先专注于安全性和可扩展性。
+  - Aptos 公链机制、代币模型、生态数据
+  - Aptos Move 语言入门
+
+  对自己的要求不高，此次残酷共学基本从理论的层面学习了解  Aptos 公链， Move 语言入门及与 Solidity 简单区别，共学收获非常大 。共分学习激励也很赞。👍
 
 <!-- Content_END -->
