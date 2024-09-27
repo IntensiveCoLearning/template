@@ -601,4 +601,5 @@ public entry fun mint_token(creator: &signer) {
 
 ### 2024.09.27
 最后一天了！
+尝试下hackathon
 <!-- Content_END -->
