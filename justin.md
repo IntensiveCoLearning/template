@@ -11,6 +11,32 @@ timezone: Asia/Shanghai
 2. 你认为你会完成本次残酷学习吗？<br>
    可以
 
+Aptos 殘酷共學營項目提交情況表:
+
+請填寫共學倉庫 Repo 中的個人 markdown 文件名:
+justin
+
+請填寫參與共學的 Github 賬戶
+fantasyni
+
+請填寫一個屬於您自己的 ETH 地址
+0xC91d7d862EaEF5472513d376497b9015C82e7374
+
+請填寫一個屬於您自己的 APT 地址
+0x9b2916b5f46b5600d72c3a32624794d05bbad5e50de62853baeaad97887c386d
+
+請填寫項目名稱:
+wormhole-aptos-native-token-transfer
+
+請填寫項目詳情:
+wormhole ntt aptos 合约实现
+
+請填寫項目 Github 與相關鏈接:
+https://github.com/fantasyni/wormhole-aptos-native-token-transfer
+
+對共學、學習方式、目標、Aptos 文檔等建議:
+暂无
+
 ## Notes
 
 <!-- Content_START -->
