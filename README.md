@@ -260,6 +260,17 @@
 
 
 
+
 <!-- STATISTICALDATA_START -->
+
+
+## 统计数据
+
+- 总参与人数: 45
+- 完成人数: 19
+- 全勤用户: simons, yue, qiaopengjun, MartinYeung5, SummerXJ
+- 淘汰人数: 26
+- 淘汰率: 57.78%
+- Fork人数: 44
 <!-- STATISTICALDATA_END -->
 
