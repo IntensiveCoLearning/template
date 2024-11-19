@@ -382,7 +382,6 @@ def calculate_statistics(content):
         'completed_users': completed_users
     }
 
-
 def main():
     try:
         print_variables(
