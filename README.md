@@ -36,6 +36,7 @@
 ## 发起组织
 
 - {残酷共学发起组织方，可以是多个，请按以下格式将组织名称、link 和 logo 填好}
+
   [LXDAO](https://lxdao.io/) <img alt="organization-logo" height="60px" width="60px" src="https://cdn.lxdao.io/bafkreiay6vxsvv3ksxr75lzzt3iqy3zja3o2epuxh47ivs24p2xs3awexm.png" />
 
 ## 请假规则
