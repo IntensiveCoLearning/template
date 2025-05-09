@@ -1,65 +1,57 @@
-# 残酷共学模版
-
-> 本文档为创建残酷共学的通用模版 - 中文版，请根据模版结构来进行你的残酷共学的内容填充，请将 {} 内容进行替换
-
-# {残酷共学名称} <img alt="logo" height="80px" width="80px" src="{残酷共学 logo 图片 URL，没有可以删掉}" />
+# 残酷共学名称
 
 ## 介绍
 
-{残酷共学的介绍}
+介绍内容
 
 ## 关键词
 
-{残酷共学的关键词 tag，能够让参与者比较快速的搜索和定位到你的这个残酷共学，比如 DeFi，DAO，English 等，请用英文，并用英文的逗号（,）分隔}
+关键词内容
 
 ## 面向人群
 
-{残酷共学主要的受众人群，比如是专门针对程序员的，那么没有这方面技能和经验的人就可以不参加}
+面向人群内容
 
 ## 报名时间
 
-- 开始时间：{报名开始时间，格式：yyyy-mm-dd，例子：2025-11-01}
-- 结束时间：{报名结束时间，格式：yyyy-mm-dd，例子：2025-11-01}
+- 开始时间：
+- 结束时间：
 
 ## 共学时间
 
-- 开始时间：{共学正式开始时间，格式：yyyy-mm-dd，例子：2025-11-01}
-- 结束时间：{共学正式开始时间，格式：yyyy-mm-dd，例子：2025-11-01}
+- 开始时间：
+- 结束时间：
 
 ## 发起人
 
-- 姓名：{残酷共学发起人名字}
-- GitHub ID：{残酷共学发起人 GitHub ID}
-- Telegram：{残酷共学发起人 Telegram ID}
-- Email：{残酷共学发起人 email}
+- 姓名：
+- GitHub ID：
+- Telegram：
+- Email：
 
 ## 发起组织
 
-- {残酷共学发起组织方，可以是多个，请按以下格式将组织名称、link 和 logo 填好}
-
-  [LXDAO](https://lxdao.io/) <img alt="organization-logo" height="60px" width="60px" src="https://cdn.lxdao.io/bafkreiay6vxsvv3ksxr75lzzt3iqy3zja3o2epuxh47ivs24p2xs3awexm.png" />
+残酷共学发起组织方，可以是多个
 
 ## 请假规则
 
-每周请假 {请假次数，数字} 次
+每周请假 2 次
 
 ## 社群
 
-Telegram：{残酷共学 Telegram channel 链接，方便大家讨论共学内容}
+Telegram：
 
 ## 学习资料/课程安排
 
-{这部分内容是直接用 markdown 格式来编写，默认学习资料是一定要提供的，如果有导师线上上课，需要提供课程安排以及导师信息}
+学习内容
 
 ## 共学激励
 
-{这部分内容是直接用 markdown 格式来编写，激励不是必须的，如果没有激励设置，也可以不写，或者写几句激励的话都可以}
-{以下是残酷共学目前已有的福利，建议保留}
 打卡成功者福利：https://www.notion.so/lxdao/3eab258b4df44c9cb97319452b2be13b
 
 ## 更多信息
 
-{这部分内容是直接用 markdown 格式来编写，也不是必须的，这部分是如果有信息上面模块没有覆盖到，可以写在这里}
+更多信息内容
 
 ## 报名和打卡规则
 
@@ -113,38 +105,3 @@ Telegram：{残酷共学 Telegram channel 链接，方便大家讨论共学内�
 
 <!-- STATISTICALDATA_START -->
 <!-- STATISTICALDATA_END -->
-
-> 如果你是此次共学发起人，请进行以下操作进行自动化发放权限的设置，完成后请将这一部分内容从你的仓库中删掉。
-
-### 为您的组织 【残酷共学营】 创建具有邀请协作者权限的个人访问令牌
-
-要创建具有邀请协作者权限的个人访问令牌，请按照以下步骤操作：
-
-1. 导航到您的个人设置: 转到 https://github.com/settings/profile 并登录您的 GitHub 帐户。
-
-2. 访问个人访问令牌页面: 在左侧菜单中，单击 “开发者设置”，然后选择 “个人访问令牌”。
-
-3. 创建新令牌: 点击 “生成新令牌” 按钮,选择 classic 的。
-
-4. 命名您的令牌: 在 “令牌名称” 字段中输入一个描述性名称，例如 `invite-collaborators`。
-
-5. 选择适当的范围: 在 “范围” 部分，选择授予您的令牌所需的权限。对于邀请协作者，您需要授予以下范围：
-
-- `repo:invite`：允许您的令牌创建存储库邀请。最好是给这个令牌赋予 repo 总权限。
-- `admin:org` 权限的用户才能创建具有邀请协作者权限的个人访问令牌。
-
-6. 将令牌值添加到存储库 secret: 按照上述步骤将您的个人访问令牌值添加到您的存储库 secret 中，并将名称设置为 `PAT_WITH_INVITE_PERMISSIONS`。
-
-![image](https://github.com/user-attachments/assets/d7c06540-9076-4557-b911-e5e484a742bb)
-<img width="1213" alt="image" src="https://github.com/user-attachments/assets/ef8e870d-e594-4caa-b42e-01150d5b5562" />
-
-### 配置共学信息配置变量
-
-1. 配置这两个仓库变量(Repository variables)，注意不要添加**换行**，**空格**符号
-
-| Field Name | Value                     | Comments   |
-| ---------- | ------------------------- | ---------- |
-| START_DATE | 2025-06-24T00:00:00+00:00 | Start time |
-| END_DATE   | 2025-07-06T23:59:59+00:00 | End time   |
-
-![image](https://github.com/user-attachments/assets/d5b6f504-9eea-4215-9848-056fc33f00f8)
