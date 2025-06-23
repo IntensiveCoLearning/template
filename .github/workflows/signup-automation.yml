@@ -158,7 +158,7 @@ jobs:
 
           <!-- Content_START -->
 
-          ### ${CURRENT_DATE}
+          # ${CURRENT_DATE}
 
 
           <!-- Content_END -->
