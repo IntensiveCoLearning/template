@@ -47,7 +47,7 @@ Telegram：
 
 ## 共学激励
 
-打卡成功者福利：https://www.notion.so/lxdao/3eab258b4df44c9cb97319452b2be13b
+学到知识就是最大的福利！
 
 ## 更多信息
 
