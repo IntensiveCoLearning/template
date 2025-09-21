@@ -64,34 +64,14 @@ Telegram：
 ✅ = Done ⭕️ = Missed ❌ = Failed
 
 <!-- START_COMMIT_TABLE -->
-| Name |  |
-| ------------- |  |
-| [SIGNUP_AUTOMATION](https://github.com/IntensiveCoLearning/template/blob/main/SIGNUP_AUTOMATION.md) |
+
+| Name | |
+| ------------- | |
+
 <!-- END_COMMIT_TABLE -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- STATISTICALDATA_START -->
+
 ## 统计数据
 
-- 总参与人数: 1
-- 完成人数: 1
-- 完成用户: SIGNUP_AUTOMATION
-- 全勤用户: 
-- 淘汰人数: 0
-- 淘汰率: 0.00%
-- Fork人数: 45
 <!-- STATISTICALDATA_END -->
