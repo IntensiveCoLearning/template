@@ -163,7 +163,7 @@ jobs:
                 - 👤 GitHub ID: @${githubId}
                 - 📝 Notes file created: \`${notesPath}\`
 
-                Let's start Intensive Co-learning! 🎉
+                Let's start Intensive Co-learning! 🎉`
               });
               console.log(`Comment posted: issue=#${issue_number} user=${githubId} path=${notesPath}`);
             } catch (error) {
