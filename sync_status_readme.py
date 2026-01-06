@@ -12,6 +12,7 @@ DEFAULT_TIMEZONE = 'Asia/Shanghai'
 FILE_SUFFIX = '.md'
 README_FILE = 'README.md'
 FIELD_NAME = 'Name'
+NOTES_DIR = 'notes'
 Content_START_MARKER = "<!-- Content_START -->"
 Content_END_MARKER = "<!-- Content_END -->"
 TABLE_START_MARKER = "<!-- START_COMMIT_TABLE -->"
@@ -33,6 +34,7 @@ def print_env():
             FILE_SUFFIX: {FILE_SUFFIX}
             README_FILE: {README_FILE}
             FIELD_NAME: {FIELD_NAME}
+            NOTES_DIR: {NOTES_DIR}
             Content_START_MARKER: {Content_START_MARKER}
             Content_END_MARKER: {Content_END_MARKER}
             TABLE_START_MARKER: {TABLE_START_MARKER}
@@ -177,7 +179,7 @@ def check_md_content(file_content, date, user_tz):
 
 def get_user_study_status(nickname):
     user_status = {}
-    file_name = f"{nickname}{FILE_SUFFIX}"
+    file_name, _ = get_user_file_path(nickname)
     try:
         with open(file_name, 'r', encoding='utf-8') as file:
             file_content = file.read()
@@ -236,9 +238,35 @@ def check_weekly_status(user_status, date, user_tz):
 
 def get_all_user_files():
     exclude_prefixes = ('template', 'readme')
-    return [f[:-len(FILE_SUFFIX)] for f in os.listdir('.')
-            if f.lower().endswith(FILE_SUFFIX.lower())
-            and not f.lower().startswith(exclude_prefixes)]
+    users = {}
+
+    if os.path.isdir(NOTES_DIR):
+        for f in os.listdir(NOTES_DIR):
+            if not f.lower().endswith(FILE_SUFFIX.lower()):
+                continue
+            if f.lower().startswith(exclude_prefixes):
+                continue
+            users[f[:-len(FILE_SUFFIX)]] = os.path.join(NOTES_DIR, f)
+
+    for f in os.listdir('.'):
+        if not f.lower().endswith(FILE_SUFFIX.lower()):
+            continue
+        if f.lower().startswith(exclude_prefixes):
+            continue
+        user = f[:-len(FILE_SUFFIX)]
+        if user not in users:
+            users[user] = f
+
+    return list(users.keys())
+
+def get_user_file_path(nickname: str):
+    notes_path = os.path.join(NOTES_DIR, f"{nickname}{FILE_SUFFIX}")
+    root_path = f"{nickname}{FILE_SUFFIX}"
+    if os.path.exists(notes_path):
+        return notes_path, True
+    if os.path.exists(root_path):
+        return root_path, False
+    return notes_path, True
 
 def extract_name_from_row(row):
     match = re.match(r'\|\s*\[([^\]]+)\]\([^)]+\)\s*\|', row)
@@ -328,22 +356,25 @@ def update_readme(content):
 def generate_user_row(user, allowed_leave_quota):
     user_status = get_user_study_status(user)
     owner, repo = get_repo_info()
+    file_path, in_notes = get_user_file_path(user)
     if owner and repo:
-        repo_url = f"https://github.com/{owner}/{repo}/blob/main/{user}{FILE_SUFFIX}"
+        if in_notes:
+            repo_url = f"https://github.com/{owner}/{repo}/blob/main/{NOTES_DIR}/{user}{FILE_SUFFIX}"
+        else:
+            repo_url = f"https://github.com/{owner}/{repo}/blob/main/{user}{FILE_SUFFIX}"
     else:
         # Fallback to local if repo info is unavailable
-        repo_url = f"{user}{FILE_SUFFIX}"
+        repo_url = f"{NOTES_DIR}/{user}{FILE_SUFFIX}" if in_notes else f"{user}{FILE_SUFFIX}"
     # replace the username with a markdown link
     user_link = f"[{user}]({repo_url})"
     new_row = f"| {user_link} |"
     is_eliminated = False
 
-    file_name_to_open = f"{user}{FILE_SUFFIX}"
     try:
-        with open(file_name_to_open, 'r', encoding='utf-8') as file:
+        with open(file_path, 'r', encoding='utf-8') as file:
             file_content = file.read()
     except FileNotFoundError:
-        logging.error(f"Error: Could not find file {file_name_to_open}")
+        logging.error(f"Error: Could not find file {file_path}")
         return "| " + user_link + " | " + " ⭕️ |" * len(get_date_range()) + "\n"
 
     user_tz = get_user_timezone(file_content)

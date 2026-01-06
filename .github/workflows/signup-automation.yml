@@ -54,7 +54,7 @@ jobs:
             }
 
             // Extract information from issue body for creating user file
-            const nameMatch = issue.body.match(/\*\*(?:姓名|Name)[\s:：]*\*\*\s*([^\n]+)/i) || 
+            const nameMatch = issue.body.match(/\*\*(?:姓名|Name)[\s:：]*\*\*\s*([^\n]+)/i) ||
                              issue.body.match(/(?:姓名|Name)[\s:：]+([^\n]+)/i);
             const timezoneMatch = issue.body.match(/\*\*(?:时区|Timezone)[\s:：]*\*\*\s*([^\n]+)/i) ||
                                  issue.body.match(/(?:时区|Timezone)[\s:：]+([^\n]+)/i);
@@ -95,13 +95,17 @@ jobs:
           USER_INTRO: ${{ steps.extract-info.outputs.user_intro }}
         run: |
           # Create filename
-          FILENAME="${GITHUB_ID}.md"
+          NOTES_DIR="notes"
+          FILENAME="${NOTES_DIR}/${GITHUB_ID}.md"
 
-          # Check if file already exists
-          if [ -f "$FILENAME" ]; then
-            echo "File $FILENAME already exists, skipping creation"
+          # Check if file already exists (notes or root for backward compatibility)
+          if [ -f "$FILENAME" ] || [ -f "${GITHUB_ID}.md" ]; then
+            echo "File for ${GITHUB_ID} already exists, skipping creation"
             exit 0
           fi
+
+          # Ensure notes directory exists
+          mkdir -p "$NOTES_DIR"
 
           # Create the markdown file with formatted content based on template
           cat > "$FILENAME" << EOF
@@ -146,22 +150,23 @@ jobs:
             const { owner, repo } = context.repo;
             const issue_number = context.payload.issue.number;
             const githubId = '${{ steps.extract-info.outputs.github_id }}';
+            const notesPath = `notes/${githubId}.md`;
 
             try {
+              console.log(`Posting signup comment: repo=${owner}/${repo} issue=#${issue_number} user=${githubId}`);
               await github.rest.issues.createComment({
                 owner,
                 repo,
                 issue_number,
                 body: `✅ Signup processed successfully!
 
-                - ✅ @${githubId} has been invited as a collaborator with write permissions
-                - ✅ User file \`${githubId}.md\` has been created
-                - 📧 Please check your email for the collaboration invitation
+                - 👤 GitHub ID: @${githubId}
+                - 📝 Notes file created: \`${notesPath}\`
 
-                Welcome to the project! 🎉`
+                Let's start Intensive Co-learning! 🎉
               });
-              console.log(`Comment posted on issue #${issue_number}`);
+              console.log(`Comment posted: issue=#${issue_number} user=${githubId} path=${notesPath}`);
             } catch (error) {
-              console.error(`Error posting comment: ${error.message}`);
+              console.error(`Error posting comment: issue=#${issue_number} user=${githubId} error=${error.message}`);
               core.setFailed(`Error posting comment: ${error.message}`);
             }
